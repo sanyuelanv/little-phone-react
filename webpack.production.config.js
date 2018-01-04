@@ -8,7 +8,7 @@ module.exports = {
     app: ["whatwg-fetch",path.resolve(__dirname, 'app/main.js'), ]
   },
   output: {
-    path: path.resolve(__dirname, 'build'),
+    path: path.resolve(__dirname, 'build/js'),
     chunkFilename: '[name].[chunkhash:5].js',
     // 这里需要根据服务器来更改，
     filename: 'app.[chunkhash:5].js'
