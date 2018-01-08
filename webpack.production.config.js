@@ -68,7 +68,7 @@ module.exports = {
     }),
     new ExtractTextPlugin({
       filename:(getPath) => {
-        return getPath('../css/[name].[chunkhash:5].css').replace('css/js', 'css');
+        return getPath(path.join("..","css","[name].[chunkhash:5].css")).replace('css/js', 'css')
       },
       allChunks:true
     }),

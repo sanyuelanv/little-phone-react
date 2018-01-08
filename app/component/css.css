@@ -29,3 +29,12 @@ body, html {
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
 }
+.image{
+  width: 200px;/* rem */
+}
+
+.image2{
+  width: 200px; /* rem */
+  height: 177.94px;/* rem */
+  background-image: url(../image/icon.svg)
+}

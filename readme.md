@@ -1,3 +1,6 @@
+## 2018-1-8 新增
+1. 兼容```windows```端打包
+2. 新增图片文件运用例子：参考```component/index.js```
 ## 简单的一个移动端react程序
 使用react作为开发框架，使用postcss，css-modules，REM布局 来兼容编译CSS。  
 在JS的方面使用```babel-preset-env``` & ```transform-runtime``` & ```whatwg-fetch```来做语法上面兼容处理  

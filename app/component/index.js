@@ -1,6 +1,7 @@
 'use strict'
 import React from 'react'
 import style from './css.css'
+import icon from "../image/icon.svg"
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -8,7 +9,10 @@ class App extends React.Component {
   render() {
     return (
       <div className={style.all} >
-        <div className={style.box}></div>
+        <div className={style.box}>
+          <img className={style.image} src={icon} />
+          <div className={style.image2}></div>
+        </div>
       </div>
     )
   }
