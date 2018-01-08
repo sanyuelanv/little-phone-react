@@ -9,7 +9,7 @@ module.exports = {
     path.resolve(__dirname, 'app/main.js')
   ],
   output: {
-    path: path.resolve(__dirname, 'build'),
+    path: path.resolve(__dirname, 'dev'),
     chunkFilename: '[name].[chunkhash:5].chunk.js',
     publicPath: '/',
     filename: 'bundle.js'
@@ -21,7 +21,7 @@ module.exports = {
         secure: false
       }
     },
-    contentBase: path.join(__dirname, "build"),
+    contentBase: path.join(__dirname, "dev"),
     compress: true,
     port: 8080,
     host: "localhost",
