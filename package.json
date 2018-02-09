@@ -36,6 +36,7 @@
     "css-loader": "^0.28.7",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.6",
+    "postcss-adaptive-rpx": "^1.0.2",
     "postcss-loader": "^2.0.9",
     "style-loader": "^0.19.1",
     "vconsole": "^3.0.0",
@@ -44,7 +45,6 @@
   },
   "dependencies": {
     "babel-runtime": "^6.26.0",
-    "postcss-adaptive": "^0.5.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "whatwg-fetch": "^2.0.3"

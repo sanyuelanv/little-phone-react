@@ -23,18 +23,18 @@ body, html {
 }
 
 .box {
-  width: 750px; /* rem */
+  width: 750rpx;
   height: 100%;
   overflow-x:hidden;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
 }
 .image{
-  width: 200px;/* rem */
+  width: 200rpx;
 }
 
 .image2{
-  width: 200px; /* rem */
-  height: 177.94px;/* rem */
+  width: 200rpx;
+  height: 177.94rpx;
   background-image: url(../image/icon.svg)
 }
