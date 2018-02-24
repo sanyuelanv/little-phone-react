@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   border: 0;
-  -webkit-user-select: none;
+  user-select: none;
   font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "STHeitiSC-Light", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
 }
 
