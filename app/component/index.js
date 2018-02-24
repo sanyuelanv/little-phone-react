@@ -1,12 +1,9 @@
 'use strict'
 import React from 'react'
 import style from './css.css'
-import icon from "../image/icon.svg"
+import icon from '../image/icon.svg'
 class App extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-  render() {
+  render () {
     return (
       <div className={style.all} >
         <div className={style.box}>

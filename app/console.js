@@ -1,2 +1,3 @@
 import Vconsole from 'vconsole'
-let vconsole = new Vconsole()
+const vconsole = new Vconsole()
+export default vconsole

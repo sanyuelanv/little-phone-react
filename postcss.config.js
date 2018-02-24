@@ -1,8 +1,8 @@
-var autoprefixer = require('autoprefixer')
-var adaptive = require('postcss-adaptive-rpx')
+const autoprefixer = require('autoprefixer')
+const adaptive = require('postcss-adaptive-rpx')
 module.exports = {
-    plugins: [
-      autoprefixer({ browsers: ['last 2 versions'] }),
-      adaptive({ remUnit: 75 })
-    ]
+  plugins: [
+    autoprefixer({ browsers: ['last 2 versions'] }),
+    adaptive({ remUnit: 75 })
+  ]
 }
