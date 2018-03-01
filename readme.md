@@ -1,3 +1,6 @@
+## 2018-3-1 新增
+1. 使用```babel-polyfill``` 代替 ```transform-runtime```
+2. 加入```eslint```规则，以及使用```prop-types```做类型判断
 ## 2018-2-24 新增
 1. `windows` 下打包使用 ```npm run w-dep```
 2. 加入```eslint```规则

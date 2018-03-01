@@ -5,14 +5,12 @@
     "presets": [
       "env",
       "react"
-    ],
-    "plugins": [
-      "transform-runtime"
     ]
   },
   "eslintConfig": {
+    "parser": "babel-eslint",
     "parserOptions": {
-      "ecmaVersion": 6,
+      "ecmaVersion": 7,
       "sourceType": "module",
       "ecmaFeatures": {
         "jsx": true
@@ -341,6 +339,7 @@
       ]
     },
     "extends": [
+      "eslint:recommended",
       "plugin:react/recommended"
     ]
   },
@@ -364,11 +363,13 @@
   "devDependencies": {
     "autoprefixer": "^7.2.3",
     "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.2",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "css-loader": "^0.28.7",
+    "eslint": "^4.18.1",
     "eslint-plugin-react": "^7.7.0",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.6",
@@ -380,7 +381,7 @@
     "webpack-dev-server": "^2.9.7"
   },
   "dependencies": {
-    "babel-runtime": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "whatwg-fetch": "^2.0.3"
