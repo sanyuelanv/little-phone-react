@@ -2,14 +2,17 @@ const path = require('path')
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const nodeModuleDir = path.resolve(__dirname, 'node_module')
-
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { publicPath } = require('./config.json')
 module.exports = {
   entry: {
-    app: ['whatwg-fetch', path.resolve(__dirname, 'app/main.js')]
+    commone: ['babel-polyfill', 'whatwg-fetch', path.resolve(__dirname, 'app/resize.js'), 'react', 'react-dom'],
+    app: [path.resolve(__dirname, 'app/index.js')]
   },
   output: {
-    path: path.resolve(__dirname, 'build/js'),
+    path: path.resolve(__dirname, 'build'),
     chunkFilename: '[name].[chunkhash:5].js',
+    publicPath: publicPath,
     // 这里需要根据服务器来更改，
     filename: 'app.[chunkhash:5].js'
   },
@@ -30,7 +33,7 @@ module.exports = {
     },
     {
       test: /\.(png|svg|jpg|gif)$/,
-      use: 'file-loader?name=[name].[ext]&outputPath=../image/',
+      use: 'file-loader?name=[name].[ext]&outputPath=/',
       include: [path.resolve(__dirname, 'app')],
       exclude: [nodeModuleDir]
     }
@@ -68,9 +71,24 @@ module.exports = {
     }),
     new ExtractTextPlugin({
       filename: (getPath) => {
-        return getPath(path.join('..', 'css', '[name].[chunkhash:5].css')).replace('css/js', 'css')
+        return getPath(path.join('[name].[chunkhash:5].css'))
       },
       allChunks: true
+    }),
+    new HtmlWebpackPlugin({
+      filename: path.join(__dirname, 'build/index.html'),
+      template: path.join(__dirname, 'app/index.html'),
+      inject: true,
+      minify: {
+        collapseWhitespace: true,
+        conservativeCollapse: true
+      },
+      chunks: ['app']
+    }),
+    new webpack.ProvidePlugin({
+      React: 'react',
+      ReactDom: 'react-dom',
+      PropTypes: 'prop-types'
     })
   ]
 }

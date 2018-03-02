@@ -1,13 +1,20 @@
 const path = require('path')
 const webpack = require('webpack')
 const nodeModuleDir = path.resolve(__dirname, 'node_module')
-
-module.exports = {
-  entry: [
-    'whatwg-fetch',
-    path.resolve(__dirname, 'app/console.js'),
-    path.resolve(__dirname, 'app/main.js')
-  ],
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const {
+  consoleConfig,
+  netWork
+} = require('./config.json')
+const scriptArray = ['babel-polyfill', 'whatwg-fetch', path.resolve(__dirname, 'app/resize.js'), 'react', 'react-dom']
+if (consoleConfig) {
+  scriptArray.push(path.resolve(__dirname, 'app/console.js'))
+}
+scriptArray.push(path.resolve(__dirname, 'app/index.js'))
+const webpackConfig = {
+  entry: {
+    app: scriptArray
+  },
   output: {
     path: path.resolve(__dirname, 'build'),
     chunkFilename: '[name].[chunkhash:5].chunk.js',
@@ -23,8 +30,8 @@ module.exports = {
     },
     contentBase: path.join(__dirname, 'build'),
     compress: true,
-    port: 8080,
-    host: 'localhost',
+    port: netWork.proxy,
+    host: netWork.host,
     historyApiFallback: true
   },
   plugins: [
@@ -33,7 +40,19 @@ module.exports = {
       __DEV__: JSON.stringify(JSON.parse(process.env.NODE_ENV || 'true'))
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin()
+    new webpack.NamedModulesPlugin(),
+    // 把React 定义为全局变量
+    new webpack.ProvidePlugin({
+      React: 'react',
+      ReactDom: 'react-dom',
+      PropTypes: 'prop-types'
+    }),
+    new HtmlWebpackPlugin({
+      filename: path.join(__dirname, 'build/index.html'),
+      template: path.join(__dirname, 'app/index.html'),
+      inject: true,
+      chunks: ['app']
+    })
   ],
   module: {
     rules: [{
@@ -57,3 +76,5 @@ module.exports = {
     ]
   }
 }
+
+module.exports = webpackConfig

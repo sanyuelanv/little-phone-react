@@ -16,25 +16,22 @@ body, html {
   height: 100%;
 }
 
-.all {
+.main {
   width: 100%;
   height: 100%;
   overflow:hidden;
 }
 
-.box {
-  width: 750rpx;
+.app {
+  width: 100%;
   height: 100%;
-  overflow-x:hidden;
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
 }
-.image{
-  width: 200rpx;
-}
-
-.image2{
-  width: 200rpx;
-  height: 177.94rpx;
-  background-image: url(../image/icon.svg)
+.mask{
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  left: 0;
+  top:0;
+  display: none;
 }

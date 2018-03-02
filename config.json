@@ -1,0 +1,8 @@
+{
+  "consoleConfig":false,
+  "netWork":{
+    "host":"localhost",
+    "port":"8080"
+  },
+  "publicPath":"./"
+}
