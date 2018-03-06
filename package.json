@@ -7,7 +7,12 @@
       "react"
     ],
     "plugins": [
-      ["transform-class-properties", { "spec": true }]
+      [
+        "transform-class-properties",
+        {
+          "spec": true
+        }
+      ]
     ]
   },
   "eslintConfig": {
@@ -31,7 +36,7 @@
       "location": false,
       "React": false,
       "ReactDom": false,
-      "PropTypes":false
+      "PropTypes": false
     },
     "rules": {
       "accessor-pairs": 2,
