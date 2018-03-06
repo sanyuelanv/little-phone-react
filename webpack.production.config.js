@@ -6,8 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { publicPath } = require('./config.json')
 module.exports = {
   entry: {
-    commone: ['babel-polyfill', 'whatwg-fetch', path.resolve(__dirname, 'app/resize.js'), 'react', 'react-dom'],
-    app: [path.resolve(__dirname, 'app/index.js')]
+    app: ['babel-polyfill', 'whatwg-fetch', path.resolve(__dirname, 'app/resize.js'), 'react', 'react-dom', path.resolve(__dirname, 'app/index.js')]
   },
   output: {
     path: path.resolve(__dirname, 'build'),
@@ -75,6 +74,18 @@ module.exports = {
       },
       allChunks: true
     }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'common',
+      // 把你用到的，存在在node_modules里面的都打包出来
+      minChunks: function (module) {
+        return module.context && module.context.indexOf('node_modules') !== -1
+      },
+      filename: 'common.[chunkhash:5].js'
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'manifest',
+      filename: 'manifest.[chunkhash:5].js'
+    }),
     new HtmlWebpackPlugin({
       filename: path.join(__dirname, 'build/index.html'),
       template: path.join(__dirname, 'app/index.html'),
@@ -83,7 +94,7 @@ module.exports = {
         collapseWhitespace: true,
         conservativeCollapse: true
       },
-      chunks: ['app']
+      chunks: ['manifest', 'common', 'app']
     }),
     new webpack.ProvidePlugin({
       React: 'react',
