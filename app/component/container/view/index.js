@@ -1,6 +1,7 @@
 'use strict'
 import React from 'react'
-import style from './css.css'
+import css from '../../css.css'
+import PropTypes from 'prop-types'
 class View extends React.Component {
   static propTypes = {
     children: PropTypes.any,
@@ -10,7 +11,9 @@ class View extends React.Component {
     const content = this.props.children || ''
     const className = this.props.className || ''
     return (
-      <div className={`${style.view} ${className}`} >{ content }</div>
+      <div
+        className={`${className} ${css.view}`}
+      >{ content }</div>
     )
   }
 }

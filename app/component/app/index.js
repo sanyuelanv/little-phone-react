@@ -1,6 +1,6 @@
 'use strict'
 import React from 'react'
-import style from './css.css'
+import style from '../css.css'
 import View from '../container/view'
 class App extends React.Component {
   static propTypes = {

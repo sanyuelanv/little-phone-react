@@ -35,3 +35,8 @@ body, html {
   top:0;
   display: none;
 }
+.view {
+  user-select: none;
+  overflow: hidden;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
