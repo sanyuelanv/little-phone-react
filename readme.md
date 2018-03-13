@@ -7,3 +7,5 @@ View
   animationstart / animationiteration / animationend
 3. ref => getRef
 4. style 支持
+
+5. scroll 事件支持
