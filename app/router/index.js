@@ -1,7 +1,7 @@
 'use strict'
 import React from 'react'
-import style from './css.css'
 import App from '../component/app'
+import style from './css.css'
 import View from '../component/container/view'
 class Index extends React.Component {
   render () {
@@ -9,7 +9,7 @@ class Index extends React.Component {
       <App>
         <View
           className={ style.view }
-          style = {{ width: '20rpx' }}
+          style = {{ width: '20px', display: 'flex' }}
         ></View>
       </App>
     )

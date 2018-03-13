@@ -372,7 +372,6 @@
   },
   "homepage": "https://github.com/sanyuelanv/learn_mobx#readme",
   "devDependencies": {
-    "autoprefixer": "^7.2.3",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.2",
     "babel-loader": "^7.1.2",
@@ -386,7 +385,6 @@
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.6",
     "html-webpack-plugin": "^3.0.4",
-    "postcss-adaptive-rpx": "^1.0.2",
     "postcss-loader": "^2.0.9",
     "style-loader": "^0.19.1",
     "vconsole": "^3.0.0",
@@ -394,7 +392,10 @@
     "webpack-dev-server": "^2.9.7"
   },
   "dependencies": {
+    "autoprefixer": "^8.1.0",
     "babel-polyfill": "^6.26.0",
+    "postcss-adaptive-rpx": "^1.0.2",
+    "postcss-js": "^1.0.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "whatwg-fetch": "^2.0.3"
