@@ -26,3 +26,8 @@
   height: 120rpx;  
   margin: 20rpx 0;
 }
+
+.text{
+  font-size: 40rpx;
+  color: #ccc;
+}

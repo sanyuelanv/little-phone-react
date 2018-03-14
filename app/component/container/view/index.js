@@ -74,7 +74,7 @@ class View extends React.Component {
     if (this.props.animationEnd) { this.props.animationEnd(e) }
   }
   _contextMenu (e) {
-    e.preventDefault()
+    // e.preventDefault()
     if (this.props.contextMenu) { this.props.contextMenu(e) }
   }
   render () {

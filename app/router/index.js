@@ -1,6 +1,6 @@
 'use strict'
 import React from 'react'
-import { App, View, ScrollView } from '../component/index'
+import { Text, App, View, ScrollView } from '../component/index'
 import style from './css.css'
 class Index extends React.Component {
   render () {
@@ -8,7 +8,7 @@ class Index extends React.Component {
       <App>
         <View className={ style.view }></View>
         <View className={ style.view2 } tapClassName={style.viewPress}></View>
-        <ScrollView direction={'column'} className={style.scrollView}>
+        <ScrollView direction={'column'} className={style.scrollView} >
           <View className={ style.view2 } tapClassName={style.viewPress}></View>
           <View className={ style.view }></View>
           <View className={ style.view }></View>
@@ -33,6 +33,8 @@ class Index extends React.Component {
         <ScrollView direction={'row'} className={style.scrollView2}>
           <View className={ style.view3 }></View>
         </ScrollView>
+        <Text className={ style.text }>12321321</Text>
+        <Text className={ style.text }>12321321</Text>
       </App>
     )
   }

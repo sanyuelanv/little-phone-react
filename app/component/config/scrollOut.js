@@ -8,7 +8,7 @@ const touchEvent = function (event) {
   }
 }
 export default function scrollSetting () {
-  document.addEventListener('touchstart', touchEvent, false)
+  // document.addEventListener('touchstart', touchEvent, false)
   document.addEventListener('touchmove', touchEvent, false)
-  document.addEventListener('touchend', touchEvent, false)
+  // document.addEventListener('touchend', touchEvent, false)
 }
