@@ -15,12 +15,21 @@ class ScrollView extends React.Component {
     scrollStart: PropTypes.func,
     scroll: PropTypes.func,
     scrollEnd: PropTypes.func,
-    scrollCancel: PropTypes.func
+    scrollCancel: PropTypes.func,
+    refresh: PropTypes.func,
+    refreshTime: PropTypes.number
   }
   constructor (props) {
     super(props)
     this.scrollView = null
     this.iScroll = null
+    this._refresh = this._refresh.bind(this)
+  }
+  _refresh () {
+    if (this.props.refresh && this.iScroll) {
+      const time = this.props.refreshTime || 10
+      setTimeout(() => { this.iScroll.refresh() }, time)
+    }
   }
   componentDidMount () {
     const scrollbars = this.props.scrollbars === undefined ? true : this.props.scrollbars
@@ -67,6 +76,12 @@ class ScrollView extends React.Component {
     this.iScroll.on('scroll', function () { if (self.props.scroll) { self.props.scroll(this) } })
     this.iScroll.on('scrollEnd', function () { if (self.props.scrollEnd) { self.props.scrollEnd(this) } })
     this.iScroll.on('scrollCancel', function () { if (self.props.scrollCancel) { self.props.scrollCancel(this) } })
+  }
+  componentDidUpdate () {
+    if (this.iScroll) {
+      const time = this.props.refreshTime || 10
+      setTimeout(() => { this.iScroll.refresh() }, time)
+    }
   }
   componentWillUnmount () {
     this.iScroll.destroy()
