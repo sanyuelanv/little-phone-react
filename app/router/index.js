@@ -22,7 +22,7 @@ class Index extends React.Component {
   render () {
     return (
       <App>
-        <ListView className={ style.scrollView3 } Item={Item} dataSource={dataSource} />
+        <ListView className={ style.scrollView3 } Item={Item} dataSource={dataSource} needTopRefreshControl={true} />
       </App>
     )
   }

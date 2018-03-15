@@ -17,13 +17,16 @@ class ScrollView extends React.Component {
     scrollEnd: PropTypes.func,
     scrollCancel: PropTypes.func,
     refresh: PropTypes.func,
-    refreshTime: PropTypes.number
+    refreshTime: PropTypes.number,
+    bounce: PropTypes.bool,
+    renderTopRefreshControl: PropTypes.func
   }
   constructor (props) {
     super(props)
     this.scrollView = null
     this.iScroll = null
     this._refresh = this._refresh.bind(this)
+    this._renderTopRefreshControl = this._renderTopRefreshControl.bind(this)
   }
   _refresh () {
     if (this.props.refresh && this.iScroll) {
@@ -31,9 +34,15 @@ class ScrollView extends React.Component {
       setTimeout(() => { this.iScroll.refresh() }, time)
     }
   }
+  _renderTopRefreshControl () {
+    if (this.props.renderTopRefreshControl) {
+      return this.props.renderTopRefreshControl()
+    }
+  }
   componentDidMount () {
     const scrollbars = this.props.scrollbars === undefined ? true : this.props.scrollbars
     const direction = this.props.direction || 'column'
+    const bounce = this.props.bounce === undefined ? false : this.props.bounce
     const self = this
     let scrollX = false
     let scrollY = true
@@ -51,6 +60,7 @@ class ScrollView extends React.Component {
         scrollbars,
         scrollX,
         scrollY,
+        bounce,
         probeType: 2
       }
     }
@@ -62,7 +72,7 @@ class ScrollView extends React.Component {
         disablePointer: true,
         disableTouch: false,
         disableMouse: false,
-        bounce: false,
+        bounce,
         mouseWheel: true,
         scrollbars,
         scrollX,
@@ -104,6 +114,7 @@ class ScrollView extends React.Component {
         >
           { content }
         </div>
+        { this._renderTopRefreshControl() }
       </div>
     )
   }

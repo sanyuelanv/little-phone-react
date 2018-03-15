@@ -17,7 +17,8 @@ class View extends React.Component {
     animationStart: PropTypes.func,
     animationIteration: PropTypes.func,
     animationEnd: PropTypes.func,
-    contextMenu: PropTypes.func
+    contextMenu: PropTypes.func,
+    getRef: PropTypes.func
   }
   constructor (props) {
     super(props)
@@ -93,6 +94,7 @@ class View extends React.Component {
         onAnimationIteration = {this._animationIteration}
         onAnimationEnd = {this._animationEnd}
         onContextMenu = {this._contextMenu}
+        ref={this.props.getRef}
       >{ content }</div>
     )
   }
