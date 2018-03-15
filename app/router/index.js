@@ -19,10 +19,48 @@ const dataSource = [
   { text: '12123213', id: 13 }
 ]
 class Index extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      dataSource: dataSource
+    }
+  }
   render () {
     return (
       <App>
-        <ListView className={ style.scrollView3 } Item={Item} dataSource={dataSource} needTopRefreshControl={true} />
+        <ListView
+          className={ style.scrollView3 }
+          Item={Item}
+          dataSource={this.state.dataSource}
+          needTopRefreshControl={true}
+          topRefresh = {(callback) => {
+            setTimeout(() => {
+              console.log('请求结束')
+              const data = [
+                { id: 0, text: '12123213' },
+                { id: 1, text: '12123213' },
+                { id: 2, text: '12123213' },
+                { id: 3, text: '12123213' },
+                { text: '12123213', id: 4 },
+                { text: '12123213', id: 5 },
+                { text: '12123213', id: 6 },
+                { text: '12123213', id: 7 },
+                { text: '12123213', id: 8 },
+                { text: '12123213', id: 9 },
+                { text: '12123213', id: 10 },
+                { text: '12123213', id: 11 },
+                { text: '12123213', id: 12 },
+                { text: '12123213', id: 13 }
+              ]
+              this.setState({ dataSource: data })
+              callback()
+            }, 2000)
+          }}
+          bottomRefresh = {(classBack) => {
+            dataSource.push({ text: '12123213', id: 14 })
+            this.setState({ dataSource })
+          }}
+        />
       </App>
     )
   }

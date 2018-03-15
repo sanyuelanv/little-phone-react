@@ -16,28 +16,41 @@ class ScrollView extends React.Component {
     scroll: PropTypes.func,
     scrollEnd: PropTypes.func,
     scrollCancel: PropTypes.func,
-    refresh: PropTypes.func,
-    refreshTime: PropTypes.number,
+    // refresh: PropTypes.func,
+    // refreshTime: PropTypes.number,
     bounce: PropTypes.bool,
-    renderTopRefreshControl: PropTypes.func
+    renderTopRefreshControl: PropTypes.func,
+    onTouchEnd: PropTypes.func,
+    getRef: PropTypes.func
   }
   constructor (props) {
     super(props)
     this.scrollView = null
     this.iScroll = null
-    this._refresh = this._refresh.bind(this)
+    // this._refresh = this._refresh.bind(this)
     this._renderTopRefreshControl = this._renderTopRefreshControl.bind(this)
+    this._onTouchEnd = this._onTouchEnd.bind(this)
+    this._getRef = this._getRef.bind(this)
   }
-  _refresh () {
-    if (this.props.refresh && this.iScroll) {
-      const time = this.props.refreshTime || 10
-      setTimeout(() => { this.iScroll.refresh() }, time)
+  // _refresh () {
+  //   if (this.props.refresh && this.iScroll) {
+  //     const time = this.props.refreshTime || 10
+  //     setTimeout(() => { this.iScroll.refresh() }, time)
+  //   }
+  // }
+  _onTouchEnd () {
+    if (this.props.onTouchEnd) {
+      this.props.onTouchEnd(this.iScroll)
     }
   }
   _renderTopRefreshControl () {
     if (this.props.renderTopRefreshControl) {
       return this.props.renderTopRefreshControl()
     }
+  }
+  _getRef (scrollView) {
+    this.scrollView = scrollView
+    if (this.props.getRef) { this.props.getRef(scrollView) }
   }
   componentDidMount () {
     const scrollbars = this.props.scrollbars === undefined ? true : this.props.scrollbars
@@ -106,8 +119,9 @@ class ScrollView extends React.Component {
     return (
       <div
         className={`${className} ${css.scrollView}`}
-        ref={(scrollView) => { this.scrollView = scrollView }}
+        ref={this._getRef}
         style={style}
+        onTouchEnd={this._onTouchEnd}
       >
         <div
           className={`${directionClassName}`}

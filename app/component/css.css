@@ -101,11 +101,13 @@ li{
   flex-direction: column;
   margin-top: -100rpx;
 }
-.loadIcon{
+.loadIconPageSize{
   height: 100rpx;
   width: 100rpx;
-  position: relative;
   margin-top: 20rpx;
+}
+.loadIcon{
+  position: relative;
   transition: all 0.3s ease-in-out 0;
 }
 .loadIconItem1{
@@ -265,11 +267,44 @@ li{
 }
 .topRefreshControl{
   width: 100%;
-  height: 60rpx;
-  background-color: #000;
   position: absolute;
-  top:0;
   left: 0;
-  z-index: 2;
-  transform: translate3d(0,-100rpx,0)
+  transform: translate3d(0,0,0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.topRefreshControlBox{
+  width: 200rpx;
+  /* padding: 0 40rpx; */
+  height: 100%;
+  border-radius: 80rpx;
+  color: #fff;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+.topRefreshControlBoxText{
+  font-size: 28rpx;
+}
+.topRefreshControlBoxIcon{
+  width: 60rpx;
+  height: 60rpx;
+  overflow: hidden;
+  margin-right: 10rpx;
+}
+.bottomRefreshControl{
+  width: 100%;
+  height: 60rpx;
+  margin-bottom: 40rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 26rpx;
+  color: #ccc;
+  /* background-color: #000; */
+}
+.bottomRefreshControlHide{
+  composes:bottomRefreshControl;
+  display: none
 }

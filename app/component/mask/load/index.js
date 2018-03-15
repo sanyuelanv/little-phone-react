@@ -2,6 +2,7 @@
 import React from 'react'
 import style from '../../css.css'
 import View from '../../container/view'
+import LoadIcon from '../../base/icon/loadIcon'
 import PropTypes from 'prop-types'
 class App extends React.Component {
   static propTypes = {
@@ -20,20 +21,7 @@ class App extends React.Component {
   _renderLoad () {
     return (
       <View className={style.load}>
-        <div className={style.loadIcon}>
-          <div className={style.loadIconItem1 }></div>
-          <div className={style.loadIconItem2 }></div>
-          <div className={style.loadIconItem3 }></div>
-          <div className={style.loadIconItem4 }></div>
-          <div className={style.loadIconItem5 }></div>
-          <div className={style.loadIconItem6 }></div>
-          <div className={style.loadIconItem7 }></div>
-          <div className={style.loadIconItem8 }></div>
-          <div className={style.loadIconItem9 }></div>
-          <div className={style.loadIconItem10 }></div>
-          <div className={style.loadIconItem11 }></div>
-          <div className={style.loadIconItem12 }></div>
-        </div>
+        <LoadIcon className={style.loadIconPageSize} />
         <View className={style.loadText}>加载中</View>
       </View>
     )

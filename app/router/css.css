@@ -26,8 +26,6 @@
   height: 120rpx;  
   margin: 20rpx 0;
 }
-
-
 .text{
   font-size: 40rpx;
   color: #ccc;
@@ -35,7 +33,7 @@
 .scrollView3{
   width: 100%;
   height: 100%;
-  padding: 0 20rpx;
+  padding: 20rpx;
 }
 .listItem{
   width: 100%;

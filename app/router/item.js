@@ -3,9 +3,12 @@ import React from 'react'
 import style from './css.css'
 import { View } from '../component/index'
 class Item extends React.Component {
+  static propTypes = {
+    item: PropTypes.object
+  }
   render () {
     return (
-      <View className={ style.listItem }></View>
+      <View className={ style.listItem }>{this.props.item.id} | {this.props.item.text}</View>
     )
   }
 }
