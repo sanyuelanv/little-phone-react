@@ -30,9 +30,17 @@ class Index extends React.Component {
       <App>
         <ListView
           className={ style.scrollView3 }
+          layoutClassName={style.listViewLayout}
           Item={Item}
           dataSource={this.state.dataSource}
-          needTopRefreshControl={true}
+          topRefreshControlBgColor = { '#000' }
+          topRefreshControlshadowColor = { '#ccc' }
+          topRefreshControlTextColor = { '#fff'}
+          topRefreshControlTexts = {['继续下拉才会刷新', '刷新中拉', '松开手我就刷新了']}
+          bottomRefreshTextColor={ '#333' }
+          bottomRefreshText = {'加载中哈哈哈哈....'}
+          bottomRefreshTextSize = { 30 }
+          bottomRefreshPos = { 200 }
           topRefresh = {(callback) => {
             setTimeout(() => {
               console.log('请求结束')
@@ -56,9 +64,15 @@ class Index extends React.Component {
               callback()
             }, 2000)
           }}
-          bottomRefresh = {(classBack) => {
-            dataSource.push({ text: '12123213', id: 14 })
-            this.setState({ dataSource })
+          bottomRefresh = {(callback) => {
+            setTimeout(() => {
+              dataSource.push({ text: '12123213', id: 14 })
+              dataSource.push({ text: '12123213', id: 15 })
+              dataSource.push({ text: '12123213', id: 16 })
+              this.setState({ dataSource })
+              console.log('加载完毕')
+              callback()
+            }, 2000)
           }}
         />
       </App>

@@ -16,37 +16,25 @@ class ScrollView extends React.Component {
     scroll: PropTypes.func,
     scrollEnd: PropTypes.func,
     scrollCancel: PropTypes.func,
-    // refresh: PropTypes.func,
-    // refreshTime: PropTypes.number,
     bounce: PropTypes.bool,
     renderTopRefreshControl: PropTypes.func,
     onTouchEnd: PropTypes.func,
-    getRef: PropTypes.func
+    getRef: PropTypes.func,
+    getIScroll: PropTypes.func
   }
   constructor (props) {
     super(props)
     this.scrollView = null
     this.iScroll = null
-    // this._refresh = this._refresh.bind(this)
     this._renderTopRefreshControl = this._renderTopRefreshControl.bind(this)
     this._onTouchEnd = this._onTouchEnd.bind(this)
     this._getRef = this._getRef.bind(this)
   }
-  // _refresh () {
-  //   if (this.props.refresh && this.iScroll) {
-  //     const time = this.props.refreshTime || 10
-  //     setTimeout(() => { this.iScroll.refresh() }, time)
-  //   }
-  // }
   _onTouchEnd () {
-    if (this.props.onTouchEnd) {
-      this.props.onTouchEnd(this.iScroll)
-    }
+    if (this.props.onTouchEnd) { this.props.onTouchEnd(this.iScroll) }
   }
   _renderTopRefreshControl () {
-    if (this.props.renderTopRefreshControl) {
-      return this.props.renderTopRefreshControl()
-    }
+    if (this.props.renderTopRefreshControl) { return this.props.renderTopRefreshControl() }
   }
   _getRef (scrollView) {
     this.scrollView = scrollView
@@ -94,17 +82,12 @@ class ScrollView extends React.Component {
       }
     }
     this.iScroll = new IScroll(this.scrollView, config)
+    if (this.props.getIScroll) { this.props.getIScroll(this.iScroll) }
     this.iScroll.on('beforeScrollStart', function () { if (self.props.beforeScrollStart) { self.props.beforeScrollStart(this) } })
     this.iScroll.on('scrollStart', function () { if (self.props.scrollStart) { self.props.scrollStart(this) } })
     this.iScroll.on('scroll', function () { if (self.props.scroll) { self.props.scroll(this) } })
     this.iScroll.on('scrollEnd', function () { if (self.props.scrollEnd) { self.props.scrollEnd(this) } })
     this.iScroll.on('scrollCancel', function () { if (self.props.scrollCancel) { self.props.scrollCancel(this) } })
-  }
-  componentDidUpdate () {
-    if (this.iScroll) {
-      const time = this.props.refreshTime || 10
-      setTimeout(() => { this.iScroll.refresh() }, time)
-    }
   }
   componentWillUnmount () {
     this.iScroll.destroy()

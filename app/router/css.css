@@ -36,8 +36,17 @@
   padding: 20rpx;
 }
 .listItem{
-  width: 100%;
+  width: 345rpx;
   height: 200rpx;
   background-color: #ccc;
   margin-bottom: 20rpx;
+  margin-left: 20rpx;
+}
+.listItem:nth-child(odd){
+  margin-left: 0rpx;
+}
+.listViewLayout{
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: space-between */
 }

@@ -6,25 +6,41 @@ class List extends React.Component {
   static propTypes = {
     itemArr: PropTypes.array,
     bottomRefresh: PropTypes.func,
-    getRef: PropTypes.func
+    getRef: PropTypes.func,
+    bottomRefreshTextColor: PropTypes.string,
+    bottomRefreshText: PropTypes.string,
+    bottomRefreshTextSize: PropTypes.number,
+    REM: PropTypes.number,
+    layout: PropTypes.number
   }
   constructor (props) {
     super(props)
     this.state = {
       show: false
     }
+    this._setShow = this._setShow.bind(this)
+    const REM = this.props.REM
+    this.bottomRefreshTextColor = this.props.bottomRefreshTextColor || '#ccc'
+    this.bottomRefreshText = this.props.bottomRefreshText || '加载中...'
+    this.bottomRefreshTextSize = (this.props.bottomRefreshTextSize / REM) || (26 / REM)
   }
   componentDidMount () {
     this.props.getRef(this)
   }
-  _setShow () {
+  _setShow (cb) {
     this.setState({ show: !this.state.show })
+    cb()
   }
   render () {
     return (
-      <View>
+      <View className={ this.props.layoutClassName }>
         {this.props.itemArr}
-        <View className={ this.state.show ? style.bottomRefreshControl : style.bottomRefreshControlHide } >加载中...</View>
+        <div
+          className={ this.state.show ? style.bottomRefreshControl : style.bottomRefreshControlHide }
+          style={{ color: this.bottomRefreshTextColor, fontSize: `${this.bottomRefreshTextSize}rem` }}
+        >
+          {this.bottomRefreshText}
+        </div>
       </View>
     )
   }

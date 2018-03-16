@@ -5,7 +5,6 @@ import ScrollView from '../scrollView'
 import RefreshControl from './refreshControl'
 import List from './list'
 import PropTypes from 'prop-types'
-import { View } from '../..'
 const REM = 75
 const HEIGHT = (60 / REM)
 const shadowSize = [2 / REM, 12 / REM, 8 / REM]
@@ -15,30 +14,34 @@ class ListView extends React.Component {
   static propTypes = {
     Item: PropTypes.any.isRequired,
     dataSource: PropTypes.array.isRequired,
-    needTopRefreshControl: PropTypes.bool,
     topRefreshControlBgColor: PropTypes.string,
     topRefreshControlshadowColor: PropTypes.string,
     topRefreshControlTextColor: PropTypes.string,
     topRefreshControlTexts: PropTypes.array,
     topRefresh: PropTypes.func,
-    bottomRefresh: PropTypes.func
+    bottomRefresh: PropTypes.func,
+    bottomRefreshTextColor: PropTypes.string,
+    bottomRefreshText: PropTypes.string,
+    bottomRefreshTextSize: PropTypes.number,
+    bottomRefreshPos: PropTypes.number,
+    layoutClassName: PropTypes.string
   }
   constructor (props) {
     super(props)
-    this.state = {
-      topRefreshControlText: this.props.topRefreshControlTexts ? this.props.topRefreshControlTexts[0] : defaultTexts[0]
-    }
     this.bottomRefreshFlag = 0
     this.topRefreshControl = null
     this.bottomRefreshControl = null
     this.getTextRef = null
     this.scrollView = null
+    this.iScroll = null
     this.topRefreshControlState = 0
     this._scroll = this._scroll.bind(this)
     this._renderTopRefreshControl = this._renderTopRefreshControl.bind(this)
     this._onTouchEnd = this._onTouchEnd.bind(this)
     this._getRef = this._getRef.bind(this)
     this._overTopRefresh = this._overTopRefresh.bind(this)
+    this._refreshScroll = this._refreshScroll.bind(this)
+    this._checkBottomRefresh = this._checkBottomRefresh.bind(this)
     this.config = {
       bgColor: this.props.topRefreshControlBgColor || 'rgb(0, 188, 212)',
       shadowColor: this.props.topRefreshControlshadowColor || 'rgba(0, 0, 0, 0.12)',
@@ -53,15 +56,32 @@ class ListView extends React.Component {
     dataSource.map((item, index) => {
       itemArr.push(<Item item={item} key={item.id} />)
     })
-    return <List getRef={(res) => { this.bottomRefreshControl = res }} itemArr={itemArr} />
+    return <List
+      getRef={(res) => { this.bottomRefreshControl = res }}
+      REM={REM}
+      layoutClassName={this.props.layoutClassName }
+      itemArr={itemArr}
+      bottomRefreshTextColor={this.props.bottomRefreshTextColor}
+      bottomRefreshText={this.props.bottomRefreshText}
+      bottomRefreshTextSize = {this.props.bottomRefreshTextSize}
+    />
+  }
+  _refreshScroll (maxScrollY) {
+    if (this.iScroll) {
+      setTimeout(() => {
+        this.iScroll.refresh()
+        if (maxScrollY) { this.iScroll.scrollTo(0, this.iScroll.maxScrollY) }
+      }, 0)
+    }
   }
   _overTopRefresh () {
     this.topRefreshControlState = 0
     this._setRefreshControlPos(0)
     this.getTextRef._setState(0)
+    this._refreshScroll()
   }
   _onTouchEnd (e) {
-    if (this.props.needTopRefreshControl && this.topRefreshControl) {
+    if (this.props.topRefresh && this.topRefreshControl) {
       if (this.topRefreshControlState === 1) {
         this.topRefreshControlState = 2
         this.getTextRef._setState(1)
@@ -74,6 +94,7 @@ class ListView extends React.Component {
         this._setRefreshControlPos(0)
       }
     }
+    this._checkBottomRefresh(e)
   }
   _setRefreshControlPos (dist, flag) {
     if (flag) {
@@ -103,18 +124,30 @@ class ListView extends React.Component {
     }
   }
   _getRef (scrollView) { this.scrollView = scrollView }
-  _scroll (e) {
+  _checkBottomRefresh (e) {
     const { y, maxScrollY } = e
-    console.log(y)
-    if (y <= maxScrollY && maxScrollY < 0 && this.bottomRefreshFlag === 0) {
+    const bottomRefreshPos = this.props.bottomRefreshPos || 0
+    if (y <= maxScrollY + bottomRefreshPos && maxScrollY < 0 && this.bottomRefreshFlag === 0) {
       if (this.props.bottomRefresh) {
         this.bottomRefreshFlag = 1
+        if (this.bottomRefreshControl) {
+          this.bottomRefreshControl._setShow(() => {
+            this._refreshScroll(maxScrollY)
+          })
+        }
         this.props.bottomRefresh(() => {
           this.bottomRefreshFlag = 0
+          this.bottomRefreshControl._setShow(this._refreshScroll)
         })
       }
     }
-    if (this.props.needTopRefreshControl && this.topRefreshControl && this.topRefreshControlState !== 2) {
+  }
+  _scroll (e) {
+    const { y } = e
+    // 上拉加载更多
+    this._checkBottomRefresh(e)
+    // 下拉加载刷新
+    if (this.props.topRefresh && this.topRefreshControl && this.topRefreshControlState !== 2) {
       const dist = y / REM
       this._setRefreshControlPos(dist)
       if (dist <= MaxDist && dist >= 0) {
@@ -129,17 +162,13 @@ class ListView extends React.Component {
           this.getTextRef._setState(2)
         }
       }
-      // if (dist < 0) {
-
-      // }
     }
   }
   _renderTopRefreshControl () {
-    if (this.props.needTopRefreshControl) {
+    if (this.props.topRefresh) {
       return (
         <RefreshControl
           config={this.config}
-          text={this.state.topRefreshControlText}
           shadowSize={shadowSize}
           height={HEIGHT}
           getRef={(res) => { this.topRefreshControl = res }}
@@ -157,6 +186,8 @@ class ListView extends React.Component {
         scrollCancel={this._scrollEnd}
         onTouchEnd = {this._onTouchEnd}
         renderTopRefreshControl = {this._renderTopRefreshControl}
+        getIScroll= {(res) => { this.iScroll = res }}
+        scrollEnd = {this._checkBottomRefresh}
       >
 
         {this._renderList()}
