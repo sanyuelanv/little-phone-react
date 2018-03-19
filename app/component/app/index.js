@@ -3,6 +3,7 @@ import React from 'react'
 import style from '../css.css'
 import View from '../container/view'
 import Load from '../mask/load'
+import Toast from '../mask/toast'
 import scrollSetting from '../config/scrollOut'
 class App extends React.Component {
   static propTypes = {
@@ -39,6 +40,7 @@ class App extends React.Component {
       <View className={style.main} >
         <View className={style.app}>{ children }</View>
         <Load loadState={ this.state.loadState } hideLoad={this.hideLoad} />
+        <Toast />
       </View>
     )
   }

@@ -310,3 +310,7 @@ li{
   composes:bottomRefreshControl;
   display: none
 }
+.toastBox{
+  width: 100%;
+  position: absolute;
+}

@@ -8,7 +8,15 @@ class Item extends React.Component {
   }
   render () {
     return (
-      <View className={ style.listItem }>{this.props.item.id} | {this.props.item.text}</View>
+      <View
+        className={ style.listItem }
+        tap={() => {
+          window.prApp.showLoad()
+          setTimeout(() => { window.prApp.hideLoad() }, 2000)
+        }}
+      >
+        {this.props.item.id} | {this.props.item.text}
+      </View>
     )
   }
 }

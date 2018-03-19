@@ -4,6 +4,7 @@ import css from '../../css.css'
 import PropTypes from 'prop-types'
 import IScroll from '../../config/iscroll-probe'
 import device from '../../config/device'
+const TYPE = [IScroll.utils.ease.elastic, IScroll.utils.ease.quadratic, IScroll.utils.ease.circular, IScroll.utils.ease.back, IScroll.utils.ease.bounce]
 class ScrollView extends React.Component {
   static propTypes = {
     children: PropTypes.node,
@@ -20,6 +21,7 @@ class ScrollView extends React.Component {
     renderTopRefreshControl: PropTypes.func,
     onTouchEnd: PropTypes.func,
     getRef: PropTypes.func,
+    getScrollControl: PropTypes.func,
     getIScroll: PropTypes.func
   }
   constructor (props) {
@@ -29,9 +31,25 @@ class ScrollView extends React.Component {
     this._renderTopRefreshControl = this._renderTopRefreshControl.bind(this)
     this._onTouchEnd = this._onTouchEnd.bind(this)
     this._getRef = this._getRef.bind(this)
+    this._setScrollControl = this._setScrollControl.bind(this)
   }
   _onTouchEnd () {
     if (this.props.onTouchEnd) { this.props.onTouchEnd(this.iScroll) }
+  }
+  _setScrollControl (dist, time = 500, type) {
+    // quadratic, circular, back, bounce, elastic
+    const direction = this.props.direction || 'column'
+    if (type > 4) { type = 0 }
+    let x, y
+    if (direction === 'column') {
+      x = 0
+      y = -dist
+    }
+    else {
+      x = -dist
+      y = 0
+    }
+    this.iScroll.scrollTo(x, y, time, TYPE[type])
   }
   _renderTopRefreshControl () {
     if (this.props.renderTopRefreshControl) { return this.props.renderTopRefreshControl() }
@@ -51,43 +69,39 @@ class ScrollView extends React.Component {
       scrollX = true
       scrollY = false
     }
-    let config = {}
-    if (device === 'ios') {
-      config = {
-        click: true,
-        tap: true,
-        fadeScrollbars: true,
-        mouseWheel: true,
-        scrollbars,
-        scrollX,
-        scrollY,
-        bounce,
-        probeType: 2
-      }
+    const config = {
+      useTransition: true,
+      click: false,
+      tap: true,
+      fadeScrollbars: true,
+      mouseWheel: true,
+      scrollbars,
+      scrollX,
+      scrollY,
+      bounce: true,
+      disableMouse: true,
+      probeType: 2
     }
-    else {
-      config = {
-        click: true,
-        tap: true,
-        fadeScrollbars: false,
-        disablePointer: true,
-        disableTouch: false,
-        disableMouse: false,
-        bounce,
-        mouseWheel: true,
-        scrollbars,
-        scrollX,
-        scrollY,
-        probeType: 2
-      }
+    if (device === 'android') {
+      config.useTransition = true
+      config.bounce = bounce
+      // config.disableMouse = true
+      // config.disablePointer = true
+      // config.disableTouch = true
     }
     this.iScroll = new IScroll(this.scrollView, config)
     if (this.props.getIScroll) { this.props.getIScroll(this.iScroll) }
+    if (this.props.getScrollControl) { this.props.getScrollControl(this._setScrollControl) }
     this.iScroll.on('beforeScrollStart', function () { if (self.props.beforeScrollStart) { self.props.beforeScrollStart(this) } })
     this.iScroll.on('scrollStart', function () { if (self.props.scrollStart) { self.props.scrollStart(this) } })
     this.iScroll.on('scroll', function () { if (self.props.scroll) { self.props.scroll(this) } })
     this.iScroll.on('scrollEnd', function () { if (self.props.scrollEnd) { self.props.scrollEnd(this) } })
     this.iScroll.on('scrollCancel', function () { if (self.props.scrollCancel) { self.props.scrollCancel(this) } })
+  }
+  componentDidUpdate () {
+    if (this.iScroll) {
+      setTimeout(() => { this.iScroll.refresh() }, 0)
+    }
   }
   componentWillUnmount () {
     this.iScroll.destroy()

@@ -34,6 +34,7 @@ class ListView extends React.Component {
     this.getTextRef = null
     this.scrollView = null
     this.iScroll = null
+    this.needBottomRefresh = !!this.props.bottomRefresh
     this.topRefreshControlState = 0
     this._scroll = this._scroll.bind(this)
     this._renderTopRefreshControl = this._renderTopRefreshControl.bind(this)
@@ -66,19 +67,11 @@ class ListView extends React.Component {
       bottomRefreshTextSize = {this.props.bottomRefreshTextSize}
     />
   }
-  _refreshScroll (maxScrollY) {
-    if (this.iScroll) {
-      setTimeout(() => {
-        this.iScroll.refresh()
-        if (maxScrollY) { this.iScroll.scrollTo(0, this.iScroll.maxScrollY) }
-      }, 0)
-    }
-  }
+  _refreshScroll () { if (this.iScroll) { this.iScroll.refresh() } }
   _overTopRefresh () {
     this.topRefreshControlState = 0
     this._setRefreshControlPos(0)
     this.getTextRef._setState(0)
-    this._refreshScroll()
   }
   _onTouchEnd (e) {
     if (this.props.topRefresh && this.topRefreshControl) {
@@ -127,17 +120,14 @@ class ListView extends React.Component {
   _checkBottomRefresh (e) {
     const { y, maxScrollY } = e
     const bottomRefreshPos = this.props.bottomRefreshPos || 0
-    if (y <= maxScrollY + bottomRefreshPos && maxScrollY < 0 && this.bottomRefreshFlag === 0) {
+    if (y <= maxScrollY - bottomRefreshPos && maxScrollY < 0 && this.bottomRefreshFlag === 0 && this.needBottomRefresh) {
       if (this.props.bottomRefresh) {
         this.bottomRefreshFlag = 1
-        if (this.bottomRefreshControl) {
-          this.bottomRefreshControl._setShow(() => {
-            this._refreshScroll(maxScrollY)
-          })
-        }
-        this.props.bottomRefresh(() => {
+        if (this.bottomRefreshControl) { this.bottomRefreshControl._setShow(this._refreshScroll) }
+        this.props.bottomRefresh((need) => {
           this.bottomRefreshFlag = 0
           this.bottomRefreshControl._setShow(this._refreshScroll)
+          this.needBottomRefresh = need
         })
       }
     }

@@ -18,7 +18,8 @@ class View extends React.Component {
     animationIteration: PropTypes.func,
     animationEnd: PropTypes.func,
     contextMenu: PropTypes.func,
-    getRef: PropTypes.func
+    getRef: PropTypes.func,
+    id: PropTypes.string
   }
   constructor (props) {
     super(props)
@@ -85,6 +86,7 @@ class View extends React.Component {
       <div
         className={`${this.state.className} ${css.view}`}
         style={style}
+        id={ this.props.id }
         onTouchStart={this._touchstart}
         onTouchMove={this._touchMove}
         onTouchEnd={this._touchEnd}

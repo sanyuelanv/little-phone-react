@@ -4,7 +4,7 @@ import style from '../../css.css'
 import View from '../../container/view'
 import LoadIcon from '../../base/icon/loadIcon'
 import PropTypes from 'prop-types'
-class App extends React.Component {
+class Load extends React.Component {
   static propTypes = {
     children: PropTypes.node,
     maskColor: PropTypes.object,
@@ -46,4 +46,4 @@ class App extends React.Component {
   }
 }
 
-export default App
+export default Load

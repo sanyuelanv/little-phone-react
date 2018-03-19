@@ -11,7 +11,8 @@ class List extends React.Component {
     bottomRefreshText: PropTypes.string,
     bottomRefreshTextSize: PropTypes.number,
     REM: PropTypes.number,
-    layout: PropTypes.number
+    layout: PropTypes.number,
+    layoutClassName: PropTypes.string
   }
   constructor (props) {
     super(props)
@@ -29,7 +30,7 @@ class List extends React.Component {
   }
   _setShow (cb) {
     this.setState({ show: !this.state.show })
-    cb()
+    if (cb) { cb() }
   }
   render () {
     return (

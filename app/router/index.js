@@ -24,6 +24,7 @@ class Index extends React.Component {
     this.state = {
       dataSource: dataSource
     }
+    this.setScrollControl = null
   }
   render () {
     return (
@@ -33,9 +34,9 @@ class Index extends React.Component {
           layoutClassName={style.listViewLayout}
           Item={Item}
           dataSource={this.state.dataSource}
-          topRefreshControlBgColor = { '#000' }
-          topRefreshControlshadowColor = { '#ccc' }
-          topRefreshControlTextColor = { '#fff'}
+          // topRefreshControlBgColor = { '#000' }
+          // topRefreshControlshadowColor = { '#ccc' }
+          // topRefreshControlTextColor = { '#fff'}
           topRefreshControlTexts = {['继续下拉才会刷新', '刷新中拉', '松开手我就刷新了']}
           bottomRefreshTextColor={ '#333' }
           bottomRefreshText = {'加载中哈哈哈哈....'}
@@ -69,9 +70,11 @@ class Index extends React.Component {
               dataSource.push({ text: '12123213', id: 14 })
               dataSource.push({ text: '12123213', id: 15 })
               dataSource.push({ text: '12123213', id: 16 })
+              dataSource.push({ text: '12123213', id: 17 })
+              dataSource.push({ text: '12123213', id: 18 })
+              dataSource.push({ text: '12123213', id: 19 })
               this.setState({ dataSource })
-              console.log('加载完毕')
-              callback()
+              callback(false)
             }, 2000)
           }}
         />
@@ -81,6 +84,39 @@ class Index extends React.Component {
 }
 export default Index
 
+/*
+<ScrollView direction={'column'} className={style.scrollView} getScrollControl={(res) => { this.setScrollControl = res }}>
+          <View id={'dsa'} className={ style.view }></View>
+          <View id={'2'} className={ style.view }></View>
+          <View id={'das'} className={ style.view }></View>
+          <View className={ style.view }></View>
+          <View className={ style.view }></View>
+          <View className={ style.view }></View>
+          <View className={ style.view }></View>
+          <View className={ style.view }></View>
+          <View className={ style.view }></View>
+          <View className={ style.view }></View>
+          <View className={ style.view }></View>
+          <View className={ style.view }></View>
+          <View className={ style.view }></View>
+          <View className={ style.view }></View>
+          <View className={ style.view }></View>
+          <View className={ style.view }></View>
+          <View className={ style.view }></View>
+          <View className={ style.view }></View>
+          <View className={ style.view }></View>
+          <View
+            className={ style.view2 }
+            tapClassName={style.viewPress}
+            tap ={() => {
+              this.setScrollControl(100, 500, 1)
+            }}
+          ></View>
+        </ScrollView>
+        <ScrollView direction={'row'} className={style.scrollView2}>
+          <View className={ style.view3 }></View>
+        </ScrollView>
+*/
 /*
         <View className={ style.view }></View>
         <View className={ style.view2 } tapClassName={style.viewPress}
