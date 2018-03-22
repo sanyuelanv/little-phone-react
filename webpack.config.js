@@ -6,9 +6,9 @@ const {
   consoleConfig,
   netWork
 } = require('./config.json')
-const scriptArray = ['babel-polyfill', 'whatwg-fetch', path.resolve(__dirname, 'app/resize.js'), 'react', 'react-dom']
+const scriptArray = ['babel-polyfill', 'whatwg-fetch', path.resolve(__dirname, 'app/config/resize.js'), 'react', 'react-dom']
 if (consoleConfig) {
-  scriptArray.push(path.resolve(__dirname, 'app/console.js'))
+  scriptArray.push(path.resolve(__dirname, 'app/config/console.js'))
 }
 scriptArray.push(path.resolve(__dirname, 'app/index.js'))
 const webpackConfig = {

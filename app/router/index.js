@@ -1,8 +1,8 @@
 'use strict'
 import React from 'react'
-import { Text, App, View, ScrollView, ListView } from '../component/index'
+import { Text, App, View, Button } from '../component/index'
 import style from './css.css'
-import Item from './item'
+// import Item from './item'
 const dataSource = [
   { id: 1, text: '12123213' },
   { id: 2, text: '12123213' },
@@ -19,65 +19,40 @@ const dataSource = [
   { text: '12123213', id: 13 }
 ]
 class Index extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      dataSource: dataSource
-    }
-    this.setScrollControl = null
+  _handleLoad = this._handleLoad.bind(this)
+  _handleToast = this._handleToast.bind(this)
+  _handleLoad () {
+    window.Qapp.showLoad()
+    setTimeout(() => { window.Qapp.hideLoad() }, 2000)
+  }
+  _handleToast () {
+    window.Qapp.showToast('哈哈哈')
   }
   render () {
     return (
       <App>
-        <ListView
-          className={ style.scrollView3 }
-          layoutClassName={style.listViewLayout}
-          Item={Item}
-          dataSource={this.state.dataSource}
-          // topRefreshControlBgColor = { '#000' }
-          // topRefreshControlshadowColor = { '#ccc' }
-          // topRefreshControlTextColor = { '#fff'}
-          topRefreshControlTexts = {['继续下拉才会刷新', '刷新中拉', '松开手我就刷新了']}
-          bottomRefreshTextColor={ '#333' }
-          bottomRefreshText = {'加载中哈哈哈哈....'}
-          bottomRefreshTextSize = { 30 }
-          bottomRefreshPos = { 200 }
-          topRefresh = {(callback) => {
-            setTimeout(() => {
-              console.log('请求结束')
-              const data = [
-                { id: 0, text: '12123213' },
-                { id: 1, text: '12123213' },
-                { id: 2, text: '12123213' },
-                { id: 3, text: '12123213' },
-                { text: '12123213', id: 4 },
-                { text: '12123213', id: 5 },
-                { text: '12123213', id: 6 },
-                { text: '12123213', id: 7 },
-                { text: '12123213', id: 8 },
-                { text: '12123213', id: 9 },
-                { text: '12123213', id: 10 },
-                { text: '12123213', id: 11 },
-                { text: '12123213', id: 12 },
-                { text: '12123213', id: 13 }
-              ]
-              this.setState({ dataSource: data })
-              callback()
-            }, 2000)
-          }}
-          bottomRefresh = {(callback) => {
-            setTimeout(() => {
-              dataSource.push({ text: '12123213', id: 14 })
-              dataSource.push({ text: '12123213', id: 15 })
-              dataSource.push({ text: '12123213', id: 16 })
-              dataSource.push({ text: '12123213', id: 17 })
-              dataSource.push({ text: '12123213', id: 18 })
-              dataSource.push({ text: '12123213', id: 19 })
-              this.setState({ dataSource })
-              callback(false)
-            }, 2000)
-          }}
-        />
+        <View className={ style.viewTitle } >View组件</View>
+        <View className={ style.viewSecTitle } >横向布局</View>
+        <View className={ style.viewBoxRow }>
+          <View className={ style.view1 }></View>
+          <View className={ style.view2 }></View>
+          <View className={ style.view3 }></View>
+          <View className={ style.view4 }></View>
+        </View>
+        <View className={ style.viewSecTitle } >纵向布局</View>
+        <View className={ style.viewBoxCol }>
+          <View className={ style.view1 }></View>
+          <View className={ style.view2 }></View>
+          <View className={ style.view3 }></View>
+          <View className={ style.view4 }></View>
+        </View>
+        <View className={ style.viewTitle } >button组件</View>
+        <View className={ style.viewBoxRow }>
+          <Button className={ style.button } tapClassName={ style.buttonTap } tap={this._handleLoad}>加载</Button>
+          <Button className={ style.button } tapClassName={ style.buttonTap } tap={this._handleToast}>提示</Button>
+          <Button className={ style.button } tapClassName={ style.buttonTap } tap={this._handleLoad}>弹窗</Button>
+          <Button className={ style.button } tapClassName={ style.buttonTap } tap={this._handleLoad}>新页面</Button>
+        </View>
       </App>
     )
   }
@@ -116,44 +91,4 @@ export default Index
         <ScrollView direction={'row'} className={style.scrollView2}>
           <View className={ style.view3 }></View>
         </ScrollView>
-*/
-/*
-        <View className={ style.view }></View>
-        <View className={ style.view2 } tapClassName={style.viewPress}
-          tap={() => {
-            window.prApp.showLoad()
-            setTimeout(() => { window.prApp.hideLoad() }, 2000)
-          }}
-        >加载</View>
-        <ScrollView direction={'column'} className={style.scrollView} >
-          <View
-            className={ style.view2 }
-            tapClassName={style.viewPress}
-          ></View>
-          <View className={ style.view }></View>
-          <View className={ style.view }></View>
-          <View className={ style.view }></View>
-          <View className={ style.view }></View>
-          <View className={ style.view }></View>
-          <View className={ style.view }></View>
-          <View className={ style.view }></View>
-          <View className={ style.view }></View>
-          <View className={ style.view }></View>
-          <View className={ style.view }></View>
-          <View className={ style.view }></View>
-          <View className={ style.view }></View>
-          <View className={ style.view }></View>
-          <View className={ style.view }></View>
-          <View className={ style.view }></View>
-          <View className={ style.view }></View>
-          <View className={ style.view }></View>
-          <View className={ style.view }></View>
-          <View className={ style.view }></View>
-        </ScrollView>
-        <ScrollView direction={'row'} className={style.scrollView2}>
-          <View className={ style.view3 }></View>
-        </ScrollView>
-        <ListView item={''} dataSource={dataSource}></ListView>
-        <Text className={ style.text }>12321321</Text>
-        <Text className={ style.text }>12321321</Text>
 */

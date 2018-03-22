@@ -1,7 +1,7 @@
 'use strict'
 import React from 'react'
-import style from '../../css.css'
 import View from '../../container/view'
+import style from '../../css.css'
 import PropTypes from 'prop-types'
 class Text extends React.Component {
   static propTypes = {

@@ -1,52 +1,54 @@
+.viewBoxRow{
+  display: flex;
+  margin: 20rpx 20rpx 0;
+}
+.viewBoxCol{
+  composes:viewBoxRow;
+  width: 300rpx;
+  height: 300rpx;
+  flex-direction: column;
+  margin: 20rpx auto 0;
+}
 .view{
-  width: 100rpx;
+  flex: 1;
   height: 100rpx;
-  background-color: aqua;
-  margin: 20rpx auto;
+}
+.view1{
+  composes:view;
+  background-color: pink;
 }
 .view2{
   composes:view;
+  background-color: plum;
 }
 .view3{
   composes:view;
-  width: 1200rpx;
-  margin: 0 20rpx;
+  background-color: brown;
 }
-.viewPress{
+.view4{
   composes:view;
-  background-color:#ccc;
-  /* column row */
+  background-color: gold;
 }
-.scrollView{
-  width: 100%;
-  height: 400rpx;  
-}
-.scrollView2{
-  width: 100%;
-  height: 120rpx;  
-  margin: 20rpx 0;
-}
-.text{
+.viewTitle{
+  margin: 20rpx 20rpx 0;
   font-size: 40rpx;
-  color: #ccc;
+  font-weight: 900;
+  color: #333;
 }
-.scrollView3{
-  width: 100%;
-  height: 100%;
-  padding: 20rpx;
+.viewSecTitle{
+  font-size: 30rpx;
+  font-weight: 300;
+  color: #111;
+  margin: 20rpx 20rpx 0;
 }
-.listItem{
-  width: 345rpx;
-  height: 200rpx;
-  background-color: #ccc;
-  margin-bottom: 20rpx;
-  margin-left: 20rpx;
+.button{
+  margin: 20rpx;
+  padding: 10rpx;
+  text-align: center;
+  background-color:#00FF00;
 }
-.listItem:nth-child(odd){
-  margin-left: 0rpx;
-}
-.listViewLayout{
-  display: flex;
-  flex-wrap: wrap;
-  /* justify-content: space-between */
+.buttonTap{
+  composes:button;
+  color: #fff;
+  background-color:#0000ff;
 }
