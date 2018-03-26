@@ -12,23 +12,55 @@ class Toast extends React.Component {
     showToast: PropTypes.func,
     state: PropTypes.number
   }
+  constructor (props) {
+    super(props)
+    this.state = {
+      toastText: '',
+      toastState: 0,
+      toastTheme: 0
+    }
+    // 载入全局变量中
+    const { showToast } = this
+    window.Qapp.showToast = showToast
+  }
   _onTransitionEnd = this._onTransitionEnd.bind(this)
+  showToast = this.showToast.bind(this)
+  _isShow = false
   _timeFlag = null
+  _toastTime = 2000
+  showToast (toastText, toastTheme = 0, toastTime = 2000) {
+    if (toastText === '') {
+      this.setState({ toastState: 0 })
+    }
+    else {
+      this.setState({ toastState: 1, toastText, toastTheme })
+      this._toastTime = toastTime
+      if (this._timeFlag) {
+        clearTimeout(this._timeFlag)
+        this.hideToast()
+      }
+    }
+  }
+  hideToast () {
+    this._timeFlag = setTimeout(() => {
+      this.showToast('')
+      this._timeFlag = null
+    }, this._toastTime)
+  }
+  // 动画结束之后指定事件隐藏toast
   _onTransitionEnd () {
-    if (this._timeFlag === null) {
-      this._timeFlag = setTimeout(() => {
-        this.props.showToast('')
-        this._timeFlag = null
-      }, this.props.time)
+    if (this._isShow) { this._isShow = false }
+    else {
+      this._isShow = true
+      this.hideToast()
     }
   }
   render () {
-    const cn = this.props.state === 0 ? style.toastBox : `${style.toastBox} ${style.toastShow}`
+    const { toastState, toastTheme, toastText } = this.state
+    const cn = toastState === 0 ? style.toastBox : `${style.toastBox} ${style.toastShow}`
     return (
       <View className={cn} transitionEnd={this._onTransitionEnd}>
-        <View className={THEME[this.props.theme]} >
-          {this.props.text}
-        </View>
+        <View className={THEME[toastTheme]} > {toastText} </View>
       </View>
     )
   }

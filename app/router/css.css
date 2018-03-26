@@ -9,6 +9,10 @@
   flex-direction: column;
   margin: 20rpx auto 0;
 }
+.text{
+  margin: 20rpx;
+  text-align: justify;
+}
 .view{
   flex: 1;
   height: 100rpx;
@@ -42,7 +46,8 @@
   margin: 20rpx 20rpx 0;
 }
 .button{
-  margin: 20rpx;
+  flex: 1;
+  margin: 0 20rpx;
   padding: 10rpx;
   text-align: center;
   background-color:#00FF00;
@@ -51,4 +56,17 @@
   composes:button;
   color: #fff;
   background-color:#0000ff;
+}
+.scrollViewItem{
+  height: 200rpx;
+  margin: 20rpx;
+  background-color:#ccc;
+}
+.scrollViewItemPress{
+  composes:scrollViewItem;
+  background-color:#fff;
+}
+.scrollView{
+  width: 100%;
+  height: 100%;
 }

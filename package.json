@@ -394,6 +394,7 @@
     "webpack-dev-server": "^2.9.7"
   },
   "dependencies": {
+    "alloytouch": "^0.2.5",
     "babel-polyfill": "^6.26.0",
     "iscroll": "^5.2.0",
     "react": "^16.2.0",

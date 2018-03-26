@@ -46,14 +46,20 @@ class View extends React.Component {
     if (!this.props.contextMenu) { this._contextMenu = null }
   }
   _touchstart (e) {
+    console.log(e)
+    console.log('start')
     if (this.props.tap) { this.tapFlag = true }
     if (this.props.touchstart) { this.props.touchstart(e) }
   }
   _touchMove (e) {
+    console.log(e)
+    console.log('move')
     if (this.props.tap) { this.tapFlag = false }
     if (this.props.touchMove) { this.props.touchMove(e) }
   }
   _touchEnd (e) {
+    console.log(e)
+    console.log('end')
     if (this.props.tap && this.tapFlag) { this.props.tap() }
     if (this.props.touchEnd) { this.props.touchEnd(e) }
   }

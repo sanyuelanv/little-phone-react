@@ -3,21 +3,21 @@ import React from 'react'
 import { Text, App, View, Button } from '../component/index'
 import style from './css.css'
 // import Item from './item'
-const dataSource = [
-  { id: 1, text: '12123213' },
-  { id: 2, text: '12123213' },
-  { id: 3, text: '12123213' },
-  { text: '12123213', id: 4 },
-  { text: '12123213', id: 5 },
-  { text: '12123213', id: 6 },
-  { text: '12123213', id: 7 },
-  { text: '12123213', id: 8 },
-  { text: '12123213', id: 9 },
-  { text: '12123213', id: 10 },
-  { text: '12123213', id: 11 },
-  { text: '12123213', id: 12 },
-  { text: '12123213', id: 13 }
-]
+// const dataSource = [
+//   { id: 1, text: '12123213' },
+//   { id: 2, text: '12123213' },
+//   { id: 3, text: '12123213' },
+//   { text: '12123213', id: 4 },
+//   { text: '12123213', id: 5 },
+//   { text: '12123213', id: 6 },
+//   { text: '12123213', id: 7 },
+//   { text: '12123213', id: 8 },
+//   { text: '12123213', id: 9 },
+//   { text: '12123213', id: 10 },
+//   { text: '12123213', id: 11 },
+//   { text: '12123213', id: 12 },
+//   { text: '12123213', id: 13 }
+// ]
 class Index extends React.Component {
   _handleLoad = this._handleLoad.bind(this)
   _handleToast = this._handleToast.bind(this)
@@ -30,7 +30,7 @@ class Index extends React.Component {
   }
   render () {
     return (
-      <App>
+      <App noSysScroll={true}>
         <View className={ style.viewTitle } >View组件</View>
         <View className={ style.viewSecTitle } >横向布局</View>
         <View className={ style.viewBoxRow }>
@@ -53,6 +53,8 @@ class Index extends React.Component {
           <Button className={ style.button } tapClassName={ style.buttonTap } tap={this._handleLoad}>弹窗</Button>
           <Button className={ style.button } tapClassName={ style.buttonTap } tap={this._handleLoad}>新页面</Button>
         </View>
+        <View className={ style.viewTitle } >Text组件</View>
+        <Text className={ style.text }>Text和View很像，但是它不会响应任何事件，只是用于文字的展示，而且也不能嵌套使用。但如果需要长按复制的文字，就使用Text标签。（注：部分安卓浏览器无法禁止长按复制文字）</Text>
       </App>
     )
   }
