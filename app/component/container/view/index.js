@@ -21,6 +21,7 @@ class View extends React.Component {
     id: PropTypes.string
   }
   tapFlag = false // 用于记录是否tap了（出现touchmove 行为则不为tap）
+  tapTouchPos = { x: 0, y: 0 }
   _touchstart = this._touchstart.bind(this)
   _touchMove = this._touchMove.bind(this)
   _touchEnd = this._touchEnd.bind(this)
@@ -46,26 +47,27 @@ class View extends React.Component {
     if (!this.props.contextMenu) { this._contextMenu = null }
   }
   _touchstart (e) {
-    console.log(e)
-    console.log('start')
-    if (this.props.tap) { this.tapFlag = true }
-    if (this.props.touchstart) { this.props.touchstart(e) }
+    if (this.props.tap) {
+      this.tapFlag = true
+      const { screenX, screenY } = e.nativeEvent.touches[0]
+      this.tapTouchPos = { x: screenX, y: screenY }
+    }
+    if (this.props.touchstart) { this.props.touchstart(e.nativeEvent) }
   }
   _touchMove (e) {
-    console.log(e)
-    console.log('move')
-    if (this.props.tap) { this.tapFlag = false }
-    if (this.props.touchMove) { this.props.touchMove(e) }
+    if (this.props.tap) {
+      const { screenX, screenY } = e.nativeEvent.touches[0]
+      if (screenX !== this.tapTouchPos.x || screenY !== this.tapTouchPos.y) { this.tapFlag = false }
+    }
+    if (this.props.touchMove) { this.props.touchMove(e.nativeEvent) }
   }
   _touchEnd (e) {
-    console.log(e)
-    console.log('end')
     if (this.props.tap && this.tapFlag) { this.props.tap() }
-    if (this.props.touchEnd) { this.props.touchEnd(e) }
+    if (this.props.touchEnd) { this.props.touchEnd(e.nativeEvent) }
   }
   _touchCancel (e) {
     if (this.props.tap && this.tapFlag) { this.tapFlag = false }
-    if (this.props.touchCancel) { this.props.touchCancel(e) }
+    if (this.props.touchCancel) { this.props.touchCancel(e.nativeEvent) }
   }
   _transitionEnd (e) { if (this.props.transitionEnd) { this.props.transitionEnd(e) } }
   _animationStart (e) { if (this.props.animationStart) { this.props.animationStart(e) } }

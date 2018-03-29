@@ -76,13 +76,13 @@ class ScrollView extends React.Component {
       scrollbars,
       scrollX,
       scrollY,
-      bounce: true,
+      bounce,
       disableMouse: true,
       probeType: 2
     }
     if (device === 'android') {
       config.useTransition = true
-      config.bounce = bounce
+      // config.bounce = bounce
       // config.disableMouse = true
       // config.disablePointer = true
       // config.disableTouch = true
