@@ -4,7 +4,6 @@ import style from '../css.css'
 import View from '../container/view'
 import Load from '../mask/load'
 import Toast from '../mask/toast'
-import Modal from '../mask/modal'
 import scrollSetting from '../config/scrollOut'
 class App extends React.Component {
   static propTypes = {
@@ -27,7 +26,6 @@ class App extends React.Component {
         <View className={style.app}>{ children }</View>
         <Load />
         <Toast />
-        {/* <Modal /> */}
       </View>
     )
   }

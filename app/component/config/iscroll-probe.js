@@ -865,7 +865,7 @@ IScroll.prototype = {
 		var transitionType = this.options.useTransition && easing.style;
 		if(flag){
 			// scrollTo 使用
-			console.log("scrollTo 使用")
+			// console.log(`scrollTo 使用:${x}   |  ${y}`)
 			this._animate(x, y, time, easing.fn);
 		}
 		if ( !time || transitionType ) {

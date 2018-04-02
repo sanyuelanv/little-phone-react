@@ -7,7 +7,7 @@ class View extends React.Component {
     children: PropTypes.node,
     className: PropTypes.string,
     style: PropTypes.object,
-    touchstart: PropTypes.func,
+    touchStart: PropTypes.func,
     tap: PropTypes.func,
     touchMove: PropTypes.func,
     touchEnd: PropTypes.func,
@@ -22,7 +22,7 @@ class View extends React.Component {
   }
   tapFlag = false // 用于记录是否tap了（出现touchmove 行为则不为tap）
   tapTouchPos = { x: 0, y: 0 }
-  _touchstart = this._touchstart.bind(this)
+  _touchStart = this._touchStart.bind(this)
   _touchMove = this._touchMove.bind(this)
   _touchEnd = this._touchEnd.bind(this)
   _touchCancel = this._touchCancel.bind(this)
@@ -36,7 +36,7 @@ class View extends React.Component {
     this._setPropFunc()
   }
   _setPropFunc () {
-    if (!this.props.touchstart && !this.props.tap) { this._touchstart = null }
+    if (!this.props.touchStart && !this.props.tap) { this._touchStart = null }
     if (!this.props.touchMove && !this.props.tap) { this._touchMove = null }
     if (!this.props.touchEnd && !this.props.tap) { this._touchEnd = null }
     if (!this.props.touchCancel && !this.props.tap) { this._touchCancel = null }
@@ -46,13 +46,13 @@ class View extends React.Component {
     if (!this.props.animationEnd) { this._animationEnd = null }
     if (!this.props.contextMenu) { this._contextMenu = null }
   }
-  _touchstart (e) {
+  _touchStart (e) {
     if (this.props.tap) {
       this.tapFlag = true
       const { screenX, screenY } = e.nativeEvent.touches[0]
       this.tapTouchPos = { x: screenX, y: screenY }
     }
-    if (this.props.touchstart) { this.props.touchstart(e.nativeEvent) }
+    if (this.props.touchStart) { this.props.touchStart(e.nativeEvent) }
   }
   _touchMove (e) {
     if (this.props.tap) {
@@ -82,7 +82,7 @@ class View extends React.Component {
         className={`${this.props.className} ${css.view}`}
         style={style}
         id={ this.props.id }
-        onTouchStart={this._touchstart}
+        onTouchStart={this._touchStart}
         onTouchMove={this._touchMove}
         onTouchEnd={this._touchEnd}
         onTouchCancel={this._touchCancel}

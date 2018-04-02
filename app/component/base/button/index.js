@@ -4,16 +4,16 @@ import View from '../../container/view'
 import PropTypes from 'prop-types'
 class Button extends React.Component {
   static propTypes = {
-    children: PropTypes.string,
+    children: PropTypes.any,
     className: PropTypes.string,
     tapClassName: PropTypes.string,
-    touchstart: PropTypes.func,
+    touchStart: PropTypes.func,
     tap: PropTypes.func,
     touchMove: PropTypes.func,
     touchEnd: PropTypes.func,
     touchCancel: PropTypes.func
   }
-  _touchstart = this._touchstart.bind(this)
+  _touchStart = this._touchStart.bind(this)
   _touchEnd = this._touchEnd.bind(this)
   _touchCancel = this._touchCancel.bind(this)
   _setClassName = this._setClassName.bind(this)
@@ -21,9 +21,18 @@ class Button extends React.Component {
     super(props)
     this.state = { className: this.props.className || '' }
   }
-  _touchstart (e) { this._setClassName(0) }
-  _touchEnd (e) { this._setClassName(1) }
-  _touchCancel (e) { this._setClassName(1) }
+  _touchStart (e) {
+    this._setClassName(0)
+    if (this.props.touchStart) { this.props.touchStart() }
+  }
+  _touchEnd (e) {
+    this._setClassName(1)
+    if (this.props.touchEnd) { this.props.touchEnd() }
+  }
+  _touchCancel (e) {
+    this._setClassName(1)
+    if (this.props.touchCancel) { this.props.touchCancel() }
+  }
   _setClassName (type) {
     if (this.props.tapClassName && this.props.className) {
       let className = null
@@ -38,7 +47,7 @@ class Button extends React.Component {
       <View
         {...this.props}
         tap={this.props.tap}
-        touchstart={this._touchstart}
+        touchStart={this._touchStart}
         touchEnd={this._touchEnd}
         touchCancel={this._touchCancel}
         className={this.state.className}
