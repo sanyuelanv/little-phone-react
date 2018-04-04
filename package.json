@@ -2,17 +2,10 @@
   "name": "project",
   "version": "1.0.0",
   "babel": {
-    "presets": [
-      "env",
-      "react"
-    ],
+    "presets": ["env", "react"],
     "plugins": [
-      [
-        "transform-class-properties",
-        {
-          "spec": true
-        }
-      ]
+      ["transform-class-properties",{"spec": true}],
+      "transform-runtime"
     ]
   },
   "eslintConfig": {
@@ -358,7 +351,6 @@
   "main": "index.js",
   "scripts": {
     "dep": "NODE_ENV='production' webpack -p --progress --colors --config webpack.production.config.js --json --profile > stats.json",
-    "w-dep": "set NODE_ENV='production' && webpack -p --progress --colors --config webpack.production.config.js --json --profile > stats.json",
     "dev": "webpack-dev-server --devtool eval --progress --colors --content-base build"
   },
   "repository": {
@@ -372,33 +364,31 @@
   },
   "homepage": "https://github.com/sanyuelanv/learn_mobx#readme",
   "devDependencies": {
-    "autoprefixer": "^8.1.0",
+    "autoprefixer": "^8.2.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.2",
-    "babel-loader": "^7.1.2",
+    "babel-loader": "^7.1.4",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
-    "css-loader": "^0.28.7",
-    "eslint": "^4.18.1",
+    "css-loader": "^0.28.11",
+    "eslint": "^4.19.1",
     "eslint-plugin-react": "^7.7.0",
     "extract-text-webpack-plugin": "^3.0.2",
-    "file-loader": "^1.1.6",
-    "html-webpack-plugin": "^3.0.4",
-    "postcss-loader": "^2.0.9",
+    "file-loader": "^1.1.11",
+    "html-webpack-plugin": "^3.2.0",
     "postcss-adaptive-rpx": "^1.0.2",
-    "style-loader": "^0.19.1",
-    "vconsole": "^3.0.0",
-    "webpack": "^3.10.0",
-    "webpack-dev-server": "^2.9.7"
+    "postcss-loader": "^2.1.3",
+    "style-loader": "^0.20.3",
+    "vconsole": "^3.1.0",
+    "webpack": "^4.4.1",
+    "webpack-cli": "^2.0.13",
+    "webpack-dev-server": "^3.1.1"
   },
   "dependencies": {
-    "alloytouch": "^0.2.5",
-    "babel-polyfill": "^6.26.0",
-    "iscroll": "^5.2.0",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "whatwg-fetch": "^2.0.3"
+    "babel-runtime": "^6.26.0",
+    "react": "^16.3.1",
+    "react-dom": "^16.3.1"
   }
 }

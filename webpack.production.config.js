@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { publicPath } = require('./config.json')
 module.exports = {
   entry: {
-    app: ['babel-polyfill', 'whatwg-fetch', path.resolve(__dirname, 'app/config/resize.js'), 'react', 'react-dom', path.resolve(__dirname, 'app/index.js')]
+    app: [path.resolve(__dirname, 'app/config/resize.js'), 'react', 'react-dom', path.resolve(__dirname, 'app/index.js')]
   },
   output: {
     path: path.resolve(__dirname, 'build'),

@@ -7,13 +7,13 @@ class Load extends React.Component {
   _onTransitionEnd = this._onTransitionEnd.bind(this)
   showLoad = this.showLoad.bind(this)
   hideLoad = this.hideLoad.bind(this)
+  state = {
+    loadState: 0,
+    loadText: '',
+    maskColor: 'rgba(0, 0, 0, 0)'
+  }
   constructor (props) {
     super(props)
-    this.state = {
-      loadState: 0,
-      loadText: '',
-      maskColor: 'rgba(0, 0, 0, 0)'
-    }
     // 载入全局变量中
     const { showLoad, hideLoad } = this
     window.Qapp.showLoad = showLoad

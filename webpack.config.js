@@ -6,7 +6,7 @@ const {
   consoleConfig,
   netWork
 } = require('./config.json')
-const scriptArray = ['babel-polyfill', 'whatwg-fetch', path.resolve(__dirname, 'app/config/resize.js'), 'react', 'react-dom']
+const scriptArray = [path.resolve(__dirname, 'app/config/resize.js'), 'react', 'react-dom']
 if (consoleConfig) {
   scriptArray.push(path.resolve(__dirname, 'app/config/console.js'))
 }
@@ -35,12 +35,7 @@ const webpackConfig = {
     historyApiFallback: true
   },
   plugins: [
-    // 能在所有JS模块里面读取“__DEV__”这个值
-    new webpack.DefinePlugin({
-      __DEV__: JSON.stringify(JSON.parse(process.env.NODE_ENV || 'true'))
-    }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin(),
     // 把React 定义为全局变量
     new webpack.ProvidePlugin({
       React: 'react',
@@ -74,7 +69,8 @@ const webpackConfig = {
       exclude: [nodeModuleDir]
     }
     ]
-  }
+  },
+  mode: 'development'
 }
 
 module.exports = webpackConfig

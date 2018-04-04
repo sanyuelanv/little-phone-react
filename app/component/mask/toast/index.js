@@ -12,13 +12,13 @@ class Toast extends React.Component {
     showToast: PropTypes.func,
     state: PropTypes.number
   }
+  state = {
+    toastText: '',
+    toastState: 0,
+    toastTheme: 0
+  }
   constructor (props) {
     super(props)
-    this.state = {
-      toastText: '',
-      toastState: 0,
-      toastTheme: 0
-    }
     // 载入全局变量中
     const { showToast } = this
     window.Qapp.showToast = showToast

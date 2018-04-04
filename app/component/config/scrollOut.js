@@ -1,3 +1,14 @@
+let passiveSupported = false
+
+try {
+  const options = Object.defineProperty({}, 'passive', {
+    get: function () {
+      passiveSupported = true
+    }
+  })
+  window.addEventListener('test', null, options)
+}
+catch (err) {}
 const touchEvent = function (event) {
   // 判断默认行为是否可以被禁用
   if (event.cancelable) {
@@ -7,4 +18,7 @@ const touchEvent = function (event) {
     }
   }
 }
-export default function scrollSetting () { document.addEventListener('touchmove', touchEvent, false) }
+export default function scrollSetting () {
+  document.addEventListener('touchmove', touchEvent, passiveSupported
+    ? { passive: false } : false)
+}

@@ -138,6 +138,7 @@ class ListView extends React.Component {
     this._checkBottomRefresh(e)
     // 下拉加载刷新
     if (this.props.topRefresh && this.topRefreshControl && this.topRefreshControlState !== 2) {
+      console.log(y)
       const dist = y / REM
       this._setRefreshControlPos(dist)
       if (dist <= MaxDist && dist >= 0) {
