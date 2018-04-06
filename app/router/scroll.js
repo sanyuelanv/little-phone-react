@@ -22,7 +22,7 @@ class Index extends React.Component {
             tapClassName={style.scrollViewItemPress}
             tap ={() => {
               console.log(1)
-              this.setScrollControl(200, 500, 1)
+              this.setScrollControl(300, 500, 1)
             }}
           ></View>
           <View className={ style.scrollViewItem }></View>

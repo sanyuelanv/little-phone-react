@@ -595,7 +595,7 @@
       }
 
       deltaX = this.hasHorizontalScroll ? deltaX : 0
-      deltaY = this.hasVerticalScroll ? deltaY : 0
+      deltaY = this.options.bounce ? deltaY : 0
 
       newX = this.x + deltaX
       newY = this.y + deltaY

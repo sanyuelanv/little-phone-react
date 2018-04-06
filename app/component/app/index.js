@@ -17,7 +17,9 @@ class App extends React.Component {
     window.Qapp = {
       showLoad: null,
       hideLoad: null,
-      showToast: null
+      showToast: null,
+      showAlert: null,
+      hideAlert: null
     }
   }
   render () {

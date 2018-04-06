@@ -8,7 +8,7 @@ try {
   })
   window.addEventListener('test', null, options)
 }
-catch (err) {}
+catch (err) { }
 const touchEvent = function (event) {
   // 判断默认行为是否可以被禁用
   if (event.cancelable) {

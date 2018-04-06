@@ -4,7 +4,7 @@ import ScrollView from '../scrollView'
 import RefreshControl from './refreshControl'
 import List from './list'
 import PropTypes from 'prop-types'
-const REM = 75
+import REM from '../../config/rem'
 const HEIGHT = (60 / REM)
 const shadowSize = [2 / REM, 12 / REM, 8 / REM]
 const MaxDist = HEIGHT + (20 / REM)
@@ -26,7 +26,7 @@ class ListView extends React.Component {
     layoutClassName: PropTypes.string,
     Header: PropTypes.any,
     headerProp: PropTypes.object,
-    ItemKey: PropTypes.any,
+    itemKey: PropTypes.any,
     itemProp: PropTypes.object
   }
   bottomRefreshFlag = 0
@@ -52,10 +52,10 @@ class ListView extends React.Component {
     textColor: this.props.topRefreshControlTextColor || '#fff'
   }
   _renderList () {
-    const { Item, dataSource, ItemKey, itemProp } = this.props
+    const { Item, dataSource, itemKey, itemProp } = this.props
     const itemArr = []
     dataSource.map((item, index) => {
-      itemArr.push(<Item item={item} key={item[ItemKey]} {...itemProp} />)
+      itemArr.push(<Item item={item} key={item[itemKey]} {...itemProp} />)
     })
     return <List
       getRef={(res) => { this.bottomRefreshControl = res }}
@@ -138,7 +138,6 @@ class ListView extends React.Component {
     this._checkBottomRefresh(e)
     // 下拉加载刷新
     if (this.props.topRefresh && this.topRefreshControl && this.topRefreshControlState !== 2) {
-      console.log(y)
       const dist = y / REM
       this._setRefreshControlPos(dist)
       if (dist <= MaxDist && dist >= 0) {

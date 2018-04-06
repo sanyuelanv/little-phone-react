@@ -31,7 +31,7 @@ class RefreshControl extends React.Component {
     return (
       <View
         className={style.topRefreshControl}
-        style={{ height: `${height}rem`, top: `-${height}rem` }}
+        style={{ height: `${height}rem`, top: `-${height + 0.1}rem` }}
         getRef={getRef}
       >
         <View

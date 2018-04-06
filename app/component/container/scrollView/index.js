@@ -90,11 +90,11 @@ class ScrollView extends React.Component {
     this.iScroll = new IScroll(this.scrollView, config)
     if (this.props.getIScroll) { this.props.getIScroll(this.iScroll) }
     if (this.props.getScrollControl) { this.props.getScrollControl(this._setScrollControl) }
-    this.iScroll.on('beforeScrollStart', function () { if (self.props.beforeScrollStart) { self.props.beforeScrollStart(this) } })
-    this.iScroll.on('scrollStart', function () { if (self.props.scrollStart) { self.props.scrollStart(this) } })
-    this.iScroll.on('scroll', function () { if (self.props.scroll) { self.props.scroll(this) } })
-    this.iScroll.on('scrollEnd', function () { if (self.props.scrollEnd) { self.props.scrollEnd(this) } })
-    this.iScroll.on('scrollCancel', function () { if (self.props.scrollCancel) { self.props.scrollCancel(this) } })
+    if (self.props.beforeScrollStart) { this.iScroll.on('beforeScrollStart', function () { self.props.beforeScrollStart(this) }) }
+    if (self.props.scrollStart) { this.iScroll.on('scrollStart', function () { self.props.scrollStart(this) }) }
+    if (self.props.scroll) { this.iScroll.on('scroll', function () { self.props.scroll(this) }) }
+    if (self.props.scrollEnd) { this.iScroll.on('scrollEnd', function () { self.props.scrollEnd(this) }) }
+    if (self.props.scrollCancel) { this.iScroll.on('scrollCancel', function () { self.props.scrollCancel(this) }) }
   }
   componentDidUpdate () {
     if (this.iScroll) {

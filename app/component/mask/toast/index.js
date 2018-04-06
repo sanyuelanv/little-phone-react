@@ -1,17 +1,9 @@
 'use strict'
 import React from 'react'
 import style from '../../css.css'
-import PropTypes from 'prop-types'
 import View from '../../container/view'
 const THEME = [style.toastDark, style.toastLight]
 class Toast extends React.Component {
-  static propTypes = {
-    text: PropTypes.string,
-    theme: PropTypes.number,
-    time: PropTypes.number,
-    showToast: PropTypes.func,
-    state: PropTypes.number
-  }
   state = {
     toastText: '',
     toastState: 0,
