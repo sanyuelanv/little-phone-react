@@ -25,6 +25,24 @@ class ScrollView extends React.Component {
     getScrollControl: PropTypes.func,
     getIScroll: PropTypes.func
   }
+  static defaultProps = {
+    children: null,
+    className: '',
+    style: null,
+    scrollbars: true,
+    direction: 'column',
+    beforeScrollStart: null,
+    scrollStart: null,
+    scroll: null,
+    scrollEnd: null,
+    scrollCancel: null,
+    bounce: false,
+    renderTopRefreshControl: null,
+    onTouchEnd: null,
+    getRef: null,
+    getScrollControl: null,
+    getIScroll: null
+  }
   scrollView = null
   iScroll = null
   _renderTopRefreshControl = this._renderTopRefreshControl.bind(this)
@@ -38,7 +56,7 @@ class ScrollView extends React.Component {
   _onTouchEnd () { this.props.onTouchEnd(this.iScroll) }
   _setScrollControl (dist, time = 500, type) {
     // quadratic, circular, back, bounce, elastic
-    const direction = this.props.direction || 'column'
+    const direction = this.props.direction
     if (type > 4) { type = 0 }
     let x, y
     if (direction === 'column') {
@@ -57,9 +75,9 @@ class ScrollView extends React.Component {
     if (this.props.getRef) { this.props.getRef(scrollView) }
   }
   componentDidMount () {
-    const scrollbars = this.props.scrollbars === undefined ? true : this.props.scrollbars
-    const direction = this.props.direction || 'column'
-    const bounce = this.props.bounce === undefined ? false : this.props.bounce
+    const scrollbars = this.props.scrollbars
+    const direction = this.props.direction
+    const bounce = this.props.bounce
     const self = this
     let scrollX = false
     let scrollY = true
@@ -106,22 +124,17 @@ class ScrollView extends React.Component {
     this.iScroll = null
   }
   render () {
-    const content = this.props.children || null
-    const className = this.props.className || ''
-    const style = this.props.style || {}
-    const direction = this.props.direction || 'column'
-    const directionClassName = direction === 'column' ? css.scrollViewWrap : css.scrollViewWrapRow
     return (
       <View
-        className={`${className} ${css.scrollView}`}
+        className={`${this.props.className} ${css.scrollView}`}
         getRef={this._getRef}
-        style={style}
+        style={this.props.style}
         touchEnd={this._onTouchEnd}
       >
         <View
-          className={`${directionClassName}`}
+          className={`${this.props.direction === 'column' ? css.scrollViewWrap : css.scrollViewWrapRow}`}
         >
-          { content }
+          { this.props.children }
         </View>
         { this._renderTopRefreshControl() }
       </View>

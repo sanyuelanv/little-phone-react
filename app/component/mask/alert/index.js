@@ -26,9 +26,8 @@ class Alert extends React.Component {
   constructor (props) {
     super(props)
     // 载入全局变量中
-    const { show, hide } = this
+    const { show } = this
     window.Qapp.showAlert = show
-    window.Qapp.hideAlert = hide
   }
   show (obj) {
     const content = obj.content || ''

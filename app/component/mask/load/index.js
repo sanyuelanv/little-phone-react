@@ -19,9 +19,10 @@ class Load extends React.Component {
     window.Qapp.showLoad = showLoad
     window.Qapp.hideLoad = hideLoad
   }
-  showLoad (loadText, maskColor) {
-    loadText = loadText || '加载中'
-    maskColor = maskColor || 'rgba(0, 0, 0, 0)'
+  showLoad (obj) {
+    obj = obj || {}
+    const loadText = obj.content || '加载中'
+    const maskColor = obj.bgColor || 'rgba(0, 0, 0, 0)'
     this.setState({ loadState: 1, loadText, maskColor })
   }
   hideLoad (loadState) {

@@ -12,22 +12,33 @@ const defaultTexts = ['下拉刷新', '刷新中', '释放刷新']
 class ListView extends React.Component {
   static propTypes = {
     Item: PropTypes.any.isRequired,
+    itemKey: PropTypes.any.isRequired,
     dataSource: PropTypes.any.isRequired,
-    topRefreshControlBgColor: PropTypes.string,
-    topRefreshControlshadowColor: PropTypes.string,
-    topRefreshControlTextColor: PropTypes.string,
-    topRefreshControlTexts: PropTypes.array,
+    topRefreshControl: PropTypes.object,
     topRefresh: PropTypes.func,
     bottomRefresh: PropTypes.func,
-    bottomRefreshTextColor: PropTypes.string,
-    bottomRefreshText: PropTypes.string,
-    bottomRefreshTextSize: PropTypes.number,
+    bottomRefreshControl: PropTypes.object,
     bottomRefreshPos: PropTypes.number,
     layoutClassName: PropTypes.string,
     Header: PropTypes.any,
     headerProp: PropTypes.object,
-    itemKey: PropTypes.any,
     itemProp: PropTypes.object
+  }
+  static defaultProps = {
+    topRefreshControl: {
+      bgColor: 'rgb(0, 188, 212)',
+      shadowColor: 'rgba(0, 0, 0, 0.12)',
+      textColor: '#fff',
+      texts: defaultTexts
+    },
+    topRefresh: null,
+    bottomRefresh: null,
+    bottomRefreshControl: { color: '#ccc', size: 26, content: '加载中...' },
+    bottomRefreshPos: 0,
+    layoutClassName: '',
+    Header: null,
+    headerProp: null,
+    itemProp: null
   }
   bottomRefreshFlag = 0
   topRefreshControl = null
@@ -45,11 +56,11 @@ class ListView extends React.Component {
   _refreshScroll = this._refreshScroll.bind(this)
   _checkBottomRefresh = this._checkBottomRefresh.bind(this)
   config = {
-    bgColor: this.props.topRefreshControlBgColor || 'rgb(0, 188, 212)',
-    shadowColor: this.props.topRefreshControlshadowColor || 'rgba(0, 0, 0, 0.12)',
+    bgColor: this.props.topRefreshControl.bgColor,
+    shadowColor: this.props.topRefreshControl.shadowColor,
     icons: [],
-    texts: this.props.topRefreshControlTexts || defaultTexts,
-    textColor: this.props.topRefreshControlTextColor || '#fff'
+    texts: this.props.topRefreshControl.texts,
+    textColor: this.props.topRefreshControl.textColor
   }
   _renderList () {
     const { Item, dataSource, itemKey, itemProp } = this.props
@@ -62,9 +73,8 @@ class ListView extends React.Component {
       REM={REM}
       layoutClassName={this.props.layoutClassName }
       itemArr={itemArr}
-      bottomRefreshTextColor={this.props.bottomRefreshTextColor}
-      bottomRefreshText={this.props.bottomRefreshText}
-      bottomRefreshTextSize = {this.props.bottomRefreshTextSize}
+      bottomRefresh = {this.props.bottomRefresh}
+      bottomRefreshControl={this.props.bottomRefreshControl}
     />
   }
   _refreshScroll () { if (this.iScroll) { this.iScroll.refresh() } }
@@ -119,7 +129,7 @@ class ListView extends React.Component {
   _getRef (scrollView) { this.scrollView = scrollView }
   _checkBottomRefresh (e) {
     const { y, maxScrollY } = e
-    const bottomRefreshPos = this.props.bottomRefreshPos || 0
+    const bottomRefreshPos = this.props.bottomRefreshPos
     if (y <= maxScrollY - bottomRefreshPos && maxScrollY < 0 && this.bottomRefreshFlag === 0 && this.needBottomRefresh) {
       if (this.props.bottomRefresh) {
         this.bottomRefreshFlag = 1
@@ -174,8 +184,9 @@ class ListView extends React.Component {
   render () {
     return (
       <ScrollView
-        bounce={true}
         {...this.props}
+        bounce={true}
+        direction={'column'}
         scroll={this._scroll}
         scrollCancel={this._scrollEnd}
         onTouchEnd = {this._onTouchEnd}

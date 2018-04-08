@@ -1,16 +1,28 @@
 const path = require('path')
+const os = require('os')
 const webpack = require('webpack')
 const nodeModuleDir = path.resolve(__dirname, 'node_module')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const {
-  consoleConfig,
-  netWork
-} = require('./config.json')
-const scriptArray = [path.resolve(__dirname, 'app/config/resize.js'), 'react', 'react-dom']
-if (consoleConfig) {
-  scriptArray.push(path.resolve(__dirname, 'app/config/console.js'))
-}
+const { consoleConfig, netWork } = require('./config.json')
+// 根据开发配置来判断是否引入 console.js
+const scriptArray = [path.resolve(__dirname, 'app/config/resize.js')]
+if (consoleConfig) { scriptArray.push(path.resolve(__dirname, 'app/config/console.js')) }
 scriptArray.push(path.resolve(__dirname, 'app/index.js'))
+// 判断本机IP
+const ifaces = os.networkInterfaces()
+const ips = []
+let IP = 'localhost'
+for (const key in ifaces) {
+  if (ifaces.hasOwnProperty(key)) {
+    const arr = ifaces[key]
+    arr.map((item, index) => {
+      if (item.address !== '127.0.0.1' && item.family === 'IPv4' && item.mac !== '00:00:00:00:00:00') {
+        ips.push(item.address)
+      }
+    })
+  }
+}
+if (ips.length === 1) { IP = ips[0] }
 const webpackConfig = {
   entry: {
     app: scriptArray
@@ -31,7 +43,7 @@ const webpackConfig = {
     contentBase: path.join(__dirname, 'build'),
     compress: true,
     port: netWork.proxy,
-    host: netWork.host,
+    host: IP,
     historyApiFallback: true
   },
   plugins: [

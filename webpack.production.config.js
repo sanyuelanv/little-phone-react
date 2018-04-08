@@ -6,13 +6,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { publicPath } = require('./config.json')
 module.exports = {
   entry: {
-    app: [path.resolve(__dirname, 'app/config/resize.js'), 'react', 'react-dom', path.resolve(__dirname, 'app/index.js')]
+    app: [path.resolve(__dirname, 'app/config/resize.js'), path.resolve(__dirname, 'app/index.js')]
   },
   output: {
     path: path.resolve(__dirname, 'build'),
     chunkFilename: '[name].[chunkhash:5].js',
     publicPath: publicPath,
-    // 这里需要根据服务器来更改，
     filename: 'app.[chunkhash:5].js'
   },
   module: {
@@ -36,14 +35,10 @@ module.exports = {
       include: [path.resolve(__dirname, 'app')],
       exclude: [nodeModuleDir]
     }
-
     ]
   },
   node: { Buffer: false },
   plugins: [
-    new webpack.DefinePlugin({
-      __DEV__: JSON.stringify(JSON.parse(process.env.BUILD_DEV || 'false'))
-    }),
     new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.LoaderOptionsPlugin({ minimize: true }),
     new webpack.optimize.UglifyJsPlugin({
@@ -61,11 +56,6 @@ module.exports = {
         collapse_vars: true,
         // 提取出出现多次但是没有定义成变量去引用的静态值
         reduce_vars: true
-      }
-    }),
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('production')
       }
     }),
     new ExtractTextPlugin({

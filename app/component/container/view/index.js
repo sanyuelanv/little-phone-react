@@ -20,6 +20,23 @@ class View extends React.Component {
     getRef: PropTypes.func,
     id: PropTypes.string
   }
+  static defaultProps = {
+    children: null,
+    className: '',
+    style: null,
+    touchStart: null,
+    tap: null,
+    touchMove: null,
+    touchEnd: null,
+    touchCancel: null,
+    transitionEnd: null,
+    animationStart: null,
+    animationIteration: null,
+    animationEnd: null,
+    contextMenu: null,
+    getRef: null,
+    id: null
+  }
   tapFlag = false // 用于记录是否tap了（出现touchmove 行为则不为tap）
   tapTouchPos = { x: 0, y: 0 }
   _touchStart = this._touchStart.bind(this)
@@ -75,12 +92,10 @@ class View extends React.Component {
   _animationEnd (e) { if (this.props.animationEnd) { this.props.animationEnd(e) } }
   _contextMenu (e) { if (this.props.contextMenu) { this.props.contextMenu(e) } }
   render () {
-    const content = this.props.children || null
-    const style = this.props.style || {}
     return (
       <div
         className={`${this.props.className} ${css.view}`}
-        style={style}
+        style={this.props.style}
         id={ this.props.id }
         onTouchStart={this._touchStart}
         onTouchMove={this._touchMove}
@@ -92,7 +107,7 @@ class View extends React.Component {
         onAnimationEnd = {this._animationEnd}
         onContextMenu = {this._contextMenu}
         ref={this.props.getRef}
-      >{ content }</div>
+      >{ this.props.children }</div>
     )
   }
 }

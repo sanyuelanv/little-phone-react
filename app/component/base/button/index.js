@@ -13,13 +13,23 @@ class Button extends React.Component {
     touchEnd: PropTypes.func,
     touchCancel: PropTypes.func
   }
+  static defaultProps = {
+    children: null,
+    className: '',
+    tapClassName: null,
+    touchStart: null,
+    tap: null,
+    touchMove: null,
+    touchEnd: null,
+    touchCancel: null
+  }
   _touchStart = this._touchStart.bind(this)
   _touchEnd = this._touchEnd.bind(this)
   _touchCancel = this._touchCancel.bind(this)
   _setClassName = this._setClassName.bind(this)
   constructor (props) {
     super(props)
-    this.state = { className: this.props.className || '' }
+    this.state = { className: this.props.className }
   }
   _touchStart (e) {
     this._setClassName(0)
@@ -42,7 +52,7 @@ class Button extends React.Component {
     }
   }
   render () {
-    const children = this.props.children || ''
+    const { children } = this.props
     return (
       <View
         {...this.props}

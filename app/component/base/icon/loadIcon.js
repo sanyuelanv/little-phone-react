@@ -6,10 +6,10 @@ class LoadIcon extends React.Component {
   static propTypes = {
     className: PropTypes.string
   }
+  static defaultProps = { className: null }
   render () {
-    const className = this.props.className || ''
     return (
-      <View className={`${className} ${style.loadIcon}`}>
+      <View className={`${this.props.className} ${style.loadIcon}`}>
         <View className={style.loadIconItem1 }></View>
         <View className={style.loadIconItem2 }></View>
         <View className={style.loadIconItem3 }></View>

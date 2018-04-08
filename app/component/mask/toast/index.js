@@ -20,11 +20,12 @@ class Toast extends React.Component {
   _isShow = false
   _timeFlag = null
   _toastTime = 2000
-  showToast (toastText, toastTheme = 0, toastTime = 2000) {
-    if (toastText === '') {
-      this.setState({ toastState: 0 })
-    }
+  showToast (obj) {
+    if (!obj) { this.setState({ toastState: 0 }) }
     else {
+      const toastText = obj.content
+      const toastTheme = obj.theme || 0
+      const toastTime = obj.time || 2000
       this.setState({ toastState: 1, toastText, toastTheme })
       this._toastTime = toastTime
       if (this._timeFlag) {

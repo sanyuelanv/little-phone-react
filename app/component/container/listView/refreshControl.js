@@ -5,27 +5,19 @@ import View from '../view'
 import PropTypes from 'prop-types'
 class RefreshControl extends React.Component {
   static propTypes = {
-    config: PropTypes.object,
-    getRef: PropTypes.func,
-    height: PropTypes.number,
-    shadowSize: PropTypes.array,
-    getTextRef: PropTypes.func
+    config: PropTypes.object.isRequired,
+    getRef: PropTypes.func.isRequired,
+    height: PropTypes.number.isRequired,
+    shadowSize: PropTypes.array.isRequired,
+    getTextRef: PropTypes.func.isRequired
   }
   constructor (props) {
     super(props)
-    this.state = {
-      topRefreshControlText: this.props.config.texts[0]
-    }
+    this.state = { topRefreshControlText: this.props.config.texts[0] }
   }
-  componentDidMount () {
-    this.props.getTextRef(this)
-  }
-  _setState (index) {
-    this.setState({ topRefreshControlText: this.props.config.texts[index] })
-  }
-  _getState () {
-    return this.state.topRefreshControlText
-  }
+  componentDidMount () { this.props.getTextRef(this) }
+  _setState (index) { this.setState({ topRefreshControlText: this.props.config.texts[index] }) }
+  _getState () { return this.state.topRefreshControlText }
   render () {
     const { getRef, height, config, shadowSize } = this.props
     return (
@@ -42,7 +34,6 @@ class RefreshControl extends React.Component {
             color: config.textColor
           }}
         >
-          {/* <View className={style.topRefreshControlBoxIcon}></View> */}
           <View className={style.topRefreshControlBoxText}>{this.state.topRefreshControlText}</View>
         </View>
       </View>

@@ -2,46 +2,48 @@
 import React from 'react'
 import style from '../../css.css'
 import View from '../view'
+import REM from '../../config/rem'
 class List extends React.Component {
   static propTypes = {
-    itemArr: PropTypes.array,
     bottomRefresh: PropTypes.func,
-    getRef: PropTypes.func,
-    bottomRefreshTextColor: PropTypes.string,
-    bottomRefreshText: PropTypes.string,
-    bottomRefreshTextSize: PropTypes.number,
-    REM: PropTypes.number,
-    layout: PropTypes.number,
-    layoutClassName: PropTypes.string
+    itemArr: PropTypes.array.isRequired,
+    getRef: PropTypes.func.isRequired,
+    bottomRefreshControl: PropTypes.object.isRequired,
+    layoutClassName: PropTypes.string.isRequired
   }
+  static defaultProps = {
+    bottomRefresh: null,
+    getRef: null,
+    bottomRefreshControl: null,
+    layoutClassName: ''
+  }
+  _setShow = this._setShow.bind(this)
   constructor (props) {
     super(props)
-    this.state = {
-      show: false
-    }
-    this._setShow = this._setShow.bind(this)
-    const REM = this.props.REM
-    this.bottomRefreshTextColor = this.props.bottomRefreshTextColor || '#ccc'
-    this.bottomRefreshText = this.props.bottomRefreshText || '加载中...'
-    this.bottomRefreshTextSize = (this.props.bottomRefreshTextSize / REM) || (26 / REM)
+    this.state = { show: false }
   }
-  componentDidMount () {
-    this.props.getRef(this)
-  }
+  componentDidMount () { this.props.getRef(this) }
   _setShow (cb) {
     this.setState({ show: !this.state.show })
     if (cb) { cb() }
+  }
+  _renderBottom () {
+    if (this.props.bottomRefresh) {
+      return (
+        <div
+          className={ this.state.show ? style.bottomRefreshControl : style.bottomRefreshControlHide }
+          style={{ color: this.props.bottomRefreshControl.color, fontSize: `${this.props.bottomRefreshControl.size / REM}rem` }}
+        >
+          {this.props.bottomRefreshControl.content}
+        </div>
+      )
+    }
   }
   render () {
     return (
       <View className={ this.props.layoutClassName }>
         {this.props.itemArr}
-        <div
-          className={ this.state.show ? style.bottomRefreshControl : style.bottomRefreshControlHide }
-          style={{ color: this.bottomRefreshTextColor, fontSize: `${this.bottomRefreshTextSize}rem` }}
-        >
-          {this.bottomRefreshText}
-        </div>
+        {this._renderBottom()}
       </View>
     )
   }

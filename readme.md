@@ -1,50 +1,136 @@
-### View
-  整个框架的基础，所有元素都应该用它来替代。
-  在CSS上对它进行了一些设置，这些设置都是移动端上不需要的。在盒子模型上使用了 ```border-box``` 使用起来更加方便。  
-  在JS上也进行了一些封装。使用它的时候很简单只需要传入一下属性去使用即可：
-  1. className: PropTypes.string: 样式类名 
-  2. tapClassName: PropTypes.string: 点击时样式类名
-  3. style: PropTypes.object: 样式对象
-  4. touchstart: PropTypes.func: 触摸开始事件
-  5. tap: PropTypes.func: 点击事件
-  6. touchMove: PropTypes.func: 触摸移动事件
-  7. touchEnd: PropTypes.func: 触摸结束事件
-  8. touchCancel: PropTypes.func: 触摸取消事件
-  9. transitionEnd: PropTypes.func: 过渡结束事件
-  10. animationStart: PropTypes.func: 动画开始事件
-  11. animationIteration: PropTypes.func: 动画重新开始事件
-  12. animationEnd: PropTypes.func: 动画结束事件
-  13. contextMenu: PropTypes.func: 右键（长按）菜单栏
-  14. getRef: PropTypes.func: 获取真正dom节点
-  15. id: PropTypes.string: ID
+# 组件说明
+## View组件
+----
+整个框架的基础，所有元素都可以用它来替代。  
+在CSS上对它进行了一些设置，这些设置都是移动端上不需要的：禁止了选择，使用合理的盒子模型以及取消了点击高亮的情况。  
+```css
+  user-select: none;
+  box-sizing: border-box;
+  position: relative;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+```
+在JS上也进行了一些封装。使用它的时候很简单只需要传入以下属性去使用即可  
+
+### Prop
+----
+| 参数名字 | 值类型 | 默认值  | 说明 |  是否必需 |
+|---------|---------|--------- |---------|---------|
+| className| string |  null | 该组件的样式类名 | 否 |
+| id | string | null | 节点ID属性 | 否 |
+| style| object |  null | 该组件的样式属性 | 否 |
+| tap| func |  null | 点击事件 | 否 |
+| touchStart| func |  null | 触摸开始事件 | 否 |
+| touchMove| func |  null | 触摸移动事件 | 否 |
+| touchEnd| func |  null | 触摸结束事件 | 否 |
+| touchCancel| func |  null | 触摸取消事件 | 否 |
+| transitionEnd| func |  null | 过渡动画结束事件 | 否 |
+| animationStart| func |  null |  CSS 动画开始事件 |否 |
+| animationIteration | func |  null | CSS 动画重复播放事件 |否 |
+| animationEnd| func |  null |  CSS 动画结束事件 |否 |
+| getRef | func | null | 获取DOM节点 | 否 |
+| contextMenu | func | null | 上下文菜单事件 |否 |
+
   
-2. APP
-  使用了该组件意味着对你的页面做了一些限制以及引入了一些全局函数。前者对你的性能有所影响，后者方便了你对项目的弹出层的调用。  
-  在该组件，我们舍弃了浏览器原生的滚动，这意味着你需要引入我们提供的 ```ScrollView``` 。这看起来很笨，我们需要用一个极消耗性能的组件来取代原生的滚动。但这套方案其实是为了更好的滚动。总所周知，在 ```IOS``` 以及各家不同牌子的浏览器中，它们的 ```view``` 总是加入了让人厌烦的橡皮筋功能（即在最底部最顶部的时候，整个 ```webview``` 进行了滚动）。这是一个愚蠢的设计，为了让页面有更好的滚动，我们只能舍弃这个烦人的原生滚动。
-  该组件必定使用在整个项目的最外层。
-3. ScrollView
-  该组件是为了更好的滚动而存在的，在使用它之前必需是在外层使用了```APP```组件。以确保原生的滚动已经被禁止掉。相关属性设置有以下
-      children: PropTypes.node,
-    className: PropTypes.string,
-    style: PropTypes.object,
-    scrollbars: PropTypes.bool,
-    direction: PropTypes.string,
-    beforeScrollStart: PropTypes.func,
-    scrollStart: PropTypes.func,
-    scroll: PropTypes.func,
-    scrollEnd: PropTypes.func,
-    scrollCancel: PropTypes.func,
-    bounce: PropTypes.bool,
-    renderTopRefreshControl: PropTypes.func,
-    onTouchEnd: PropTypes.func,
-    getRef: PropTypes.func,
-    getScrollControl: PropTypes.func,
-    getIScroll: PropTypes.func
-4. Load
-5. toast
-6. ListView
+## App组件
+----
+整个 ```App``` 组件是覆盖我们浏览器的可视窗口并且是不可滚动的，该组件是整个页面的 ```root``` ，使用这个组件会对浏览器作出一些限制和帮助。    
+为了统一所有浏览器下的滚动以及避免一些浏览器下原生滚动的一些缺陷，我们舍弃了浏览器原生的滚动，这意味着你需要引入我们提供的  ```ScrollView``` ： 舍去原生的滚动功能，引入用一个相对耗费性能的组件来取代，这样我们能更好的滚动以及更好的控制滚动。  
 
+### Prop
+----
+| 参数名字 | 值类型 | 默认值  | 说明 |  是否必需 |
+|---------|---------|--------- |---------|---------|
+| noSysScroll| bool | true | 是否禁止系统的滚动 | 否 | 
 
-5. LoadIcon
-7. Swiper
-8. Modal
+### 全局函数
+----
+引入了 ```App``` 组件之后，我们可以使用一些预设的提示样式，只要访问全局对象 ```window.Qapp``` 即可使用。（需要注意的是，这些预设函数涉及到 ```dom``` 节点的生成，所以必须在 ```componentDidMount``` 下使用）  
+
+#### 1. 加载遮罩（load mask）
+由 ```showLoad(object)``` 和 ```hideLoad()```来控制出现和消失。
+
+```object``` 参数
+| 名字 | 值类型 | 默认值  | 说明 |  是否必需 |
+|---------|---------|--------- |---------|---------|
+| content | string  | "加载中" | 加载遮罩提示文字 | 否 |
+| maskColor | string | 'rgba(0, 0, 0, 0)' | 遮罩层背景颜色|否 |
+
+#### 2. toast 遮罩（toast mask）
+由 ``` window.Qapp.showToast(object)``` 来控制出现，在指定时间之后消失。
+
+```object``` 参数
+| 名字 | 值类型 | 默认值  | 说明 |  是否必需 |
+|---------|---------|--------- |---------|---------|
+| content | string  | null | 提示文字 | 是 |
+| theme | number | 0 | 主体（黑底白字 0/白底黑字 1）| 否 |
+| time | number | 2000 | 指定xx毫秒消失时间| 否 |
+
+#### 3. alert 遮罩（alert mask）
+由 ``` window.Qapp.showAlert(object)``` 来控制出现，在用户操作后消失。
+```object``` 参数
+| 名字 | 值类型 | 默认值  | 说明 |  是否必需 |
+|---------|---------|--------- |---------|---------|
+| content | string  | null | 提示文字 | 是|
+| title | string | null | 标题 |否|
+| maskColor | string | 'rgba(0, 0, 0, 0)' | 遮罩层背景颜色 |否|
+| rightButton | object | {event: null,name: '确认',color: '#09BB07'} | 右边按钮 |否|
+| leftButton | object | null | 左边按钮 |否|
+
+## ScrollView组件
+----
+该组件是为了更好的滚动而存在的，在使用它之前请确认根组件是 ```noSysScroll:true``` 的 ```App``` 组件。  
+需要注意的是该组件，必须设定宽高（横向滚动需要设置宽度，纵向滚动需要设置高度）。  
+由于 ```ScrollView``` 继承 ```View``` 所以```View```组件的属性，它都可以使用，以下列举的是它自身独有的属性。
+
+### Prop
+----
+| 参数名字 | 值类型 | 默认值  | 说明 |  是否必需 |
+|---------|---------|--------- |---------|---------|
+| scrollbars| bool |  true | 是否出现滚动条 | 否 |
+| direction| string |  'column' | 滚动方向(row/column) | 否 |
+| bounce| bool |  true | 滚动到边界回弹 | 否 |
+| beforeScrollStart | func | null | 滚动开始前执行事件 | 否 | 
+| scrollStart | func | null | 滚动开始执行事件 | 否 | 
+| scroll | func | null | 滚动中执行事件 | 否 | 
+| scrollEnd | func | null | 滚动结束执行事件 | 否 | 
+| scrollCancel | func | null | 滚动取消执行事件 | 否 | 
+| getScrollControl | func | null | 返回一个可控制滚动的对象 | 否
+
+## ListView组件
+-----
+```ListView``` 为  ```ScrollView``` 的拓展。主要是为了需要使用下拉刷新，到底加载更多这些功能而存在的。目前只支持 ```column``` 方向。
+
+### Prop
+----
+| 参数名字 | 值类型 | 默认值  | 说明 |  是否必需 |
+|---------|---------|--------- |---------|---------|
+| Item| node | null | 子节点组件 | 是 |
+| itemProp | object | null | 子节点组件属性 | 否 | 
+| itemKey| any | null | 子节点组件 key 属性 | 是 |
+| dataSource| array | null | 数据源 | 是 |
+| topRefreshControl| object | null | 下拉刷新组件样式 | 否 |
+| topRefresh| func | null | 下拉刷新执行事件 | 否 |
+| bottomRefresh| func | null | 上拉到底执行事件 | 否 |
+| bottomRefreshControl| object | null | 上拉到底组件样式 | 否 |
+| Header | node | null | 头部组件 | 否 | 
+| headerProp | object | null | 头部组件属性 | 否 | 
+| layoutClassName | string | null | 列表层样式类名 | 否 |
+| className | string | null | 滚动层样式类名 | 否 |
+
+### Text组件
+Text和View很像，但是它不会响应任何事件，只是用于文字的展示，而且也不能嵌套使用。但如果需要长按复制的文字，就使用Text标签。（注：部分安卓浏览器无法禁止长按复制文字）
+
+### Button组件
+继承自 ```View```组件，为了方便点击时候样式切换而存在的。
+| 参数名字 | 值类型 | 默认值  | 说明 |  是否必需 |
+|---------|---------|--------- |---------|---------|
+| tapClassName| string | null | 点击时候样式 | 否 |
+
+# 例子
+1. 每个组件的简单使用
+2. ```ScrollView``` 的互相嵌套
+3. ```ScrollView``` 的几种排列样式
+
+# todo
+1. Swiper
+2. Image

@@ -30,6 +30,11 @@ class Index extends React.Component {
               if (cb) { cb() }
             }, 2000)
           }}
+          // bottomRefresh = {(cb) => {
+          //   setTimeout(() => {
+          //     if (cb) { cb() }
+          //   }, 2000)
+          // }}
         />
       </App>
     )

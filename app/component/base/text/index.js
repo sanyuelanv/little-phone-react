@@ -8,11 +8,15 @@ class Text extends React.Component {
     children: PropTypes.string,
     className: PropTypes.string
   }
+  static defaultProps = {
+    children: null,
+    className: ''
+  }
   render () {
-    const children = this.props.children || ''
-    const className = this.props.className || ''
+    const children = this.props.children
+    const className = this.props.className
     return (
-      <View {...this.props} className={`${className} ${style.text}`}>{ children }</View>
+      <View className={`${className} ${style.text}`}>{ children }</View>
     )
   }
 }

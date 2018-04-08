@@ -11,6 +11,10 @@ class App extends React.Component {
     children: PropTypes.node,
     noSysScroll: PropTypes.bool
   }
+  static defaultProps = {
+    children: null,
+    noSysScroll: true
+  }
   componentWillMount () {
     // APP 初始化就禁止document的默认事件
     if (this.props.noSysScroll) { scrollSetting() }
@@ -18,15 +22,13 @@ class App extends React.Component {
       showLoad: null,
       hideLoad: null,
       showToast: null,
-      showAlert: null,
-      hideAlert: null
+      showAlert: null
     }
   }
   render () {
-    const children = this.props.children || ''
     return (
       <View className={style.main} >
-        <View className={style.app}>{ children }</View>
+        <View className={style.app}>{ this.props.children }</View>
         <Load />
         <Toast />
         <Alert />
