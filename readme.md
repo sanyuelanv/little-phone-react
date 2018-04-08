@@ -13,7 +13,7 @@
 
 ### Prop
 ----
-| 参数名字 | 值类型 | 默认值  | 说明 |  是否必需 |
+| 参数名字 | 值类型 | 默认值  | 说明 |  是否必需 |  
 |---------|---------|--------- |---------|---------|
 | className| string |  null | 该组件的样式类名 | 否 |
 | id | string | null | 节点ID属性 | 否 |
@@ -50,6 +50,7 @@
 由 ```showLoad(object)``` 和 ```hideLoad()```来控制出现和消失。
 
 ```object``` 参数  
+
 | 名字 | 值类型 | 默认值  | 说明 |  是否必需 |
 |---------|---------|--------- |---------|---------|
 | content | string  | "加载中" | 加载遮罩提示文字 | 否 |
@@ -59,23 +60,25 @@
 由 ``` window.Qapp.showToast(object)``` 来控制出现，在指定时间之后消失。
 
 ```object``` 参数  
+
 | 名字 | 值类型 | 默认值  | 说明 |  是否必需 |
 |---------|---------|--------- |---------|---------|
 | content | string  | null | 提示文字 | 是 |
-| theme | number | 0 | 主体（黑底白字 0/白底黑字 1）| 否 |
+| theme | number | 0 | 主体（黑底白字 0/白底黑字 1）| 否 |
 | time | number | 2000 | 指定xx毫秒消失时间| 否 |
 
-#### 3. alert 遮罩（alert mask）
+#### 3. alert 遮罩（alert mask）
 由 ``` window.Qapp.showAlert(object)``` 来控制出现，在用户操作后消失。  
 
 ```object``` 参数  
+
 | 名字 | 值类型 | 默认值  | 说明 |  是否必需 |
 |---------|---------|--------- |---------|---------|
 | content | string  | null | 提示文字 | 是|
 | title | string | null | 标题 |否|
 | maskColor | string | 'rgba(0, 0, 0, 0)' | 遮罩层背景颜色 |否|
 | rightButton | object | {event: null,name: '确认',color: '#09BB07'} | 右边按钮 |否|
-| leftButton | object | null | 左边按钮 |否|
+| leftButton | object | null | 左边按钮 |否|
 
 ## ScrollView组件
 ----
@@ -85,7 +88,7 @@
 
 ### Prop
 ----
-| 参数名字 | 值类型 | 默认值  | 说明 |  是否必需 |
+| 参数名字 | 值类型 | 默认值  | 说明 |  是否必需 |  
 |---------|---------|--------- |---------|---------|
 | scrollbars| bool |  true | 是否出现滚动条 | 否 |
 | direction| string |  'column' | 滚动方向(row/column) | 否 |
@@ -94,12 +97,12 @@
 | scrollStart | func | null | 滚动开始执行事件 | 否 | 
 | scroll | func | null | 滚动中执行事件 | 否 | 
 | scrollEnd | func | null | 滚动结束执行事件 | 否 | 
-| scrollCancel | func | null | 滚动取消执行事件 | 否 | 
+| scrollCancel | func | null | 滚动取消执行事件 | 否 | 
 | getScrollControl | func | null | 返回一个可控制滚动的对象 | 否
 
 ## ListView组件
 -----
-```ListView``` 为  ```ScrollView``` 的拓展。主要是为了需要使用下拉刷新，到底加载更多这些功能而存在的。目前只支持 ```column``` 方向。
+```ListView``` 为  ```ScrollView``` 的拓展。主要是为了需要使用下拉刷新，到底加载更多这些功能而存在的。目前只支持 ```column``` 方向。
 
 ### Prop
 ----
@@ -108,10 +111,10 @@
 | Item| node | null | 子节点组件 | 是 |
 | itemProp | object | null | 子节点组件属性 | 否 | 
 | itemKey| any | null | 子节点组件 key 属性 | 是 |
-| dataSource| array | null | 数据源 | 是 |
-| topRefreshControl| object | null | 下拉刷新组件样式 | 否 |
-| topRefresh| func | null | 下拉刷新执行事件 | 否 |
-| bottomRefresh| func | null | 上拉到底执行事件 | 否 |
+| dataSource| array | null | 数据源 | 是 |
+| topRefreshControl| object | null | 下拉刷新组件样式 | 否 |
+| topRefresh| func | null | 下拉刷新执行事件 | 否 |
+| bottomRefresh| func | null | 上拉到底执行事件 | 否 |
 | bottomRefreshControl| object | null | 上拉到底组件样式 | 否 |
 | Header | node | null | 头部组件 | 否 | 
 | headerProp | object | null | 头部组件属性 | 否 | 
@@ -119,7 +122,7 @@
 | className | string | null | 滚动层样式类名 | 否 |
 
 ### Text组件
-Text和View很像，但是它不会响应任何事件，只是用于文字的展示，而且也不能嵌套使用。但如果需要长按复制的文字，就使用Text标签。（注：部分安卓浏览器无法禁止长按复制文字）
+Text和View很像，但是它不会响应任何事件，只是用于文字的展示，而且也不能嵌套使用。但如果需要长按复制的文字，就使用Text标签。（注：部分安卓浏览器无法禁止长按复制文字）
 
 ### Button组件
 继承自 ```View```组件，为了方便点击时候样式切换而存在的。
@@ -130,7 +133,7 @@
 # 例子
 1. 每个组件的简单使用
 2. ```ScrollView``` 的互相嵌套
-3. ```ScrollView``` 的几种排列样式
+3. ```ScrollView``` 的几种排列样式
 
 # todo
 1. Swiper
