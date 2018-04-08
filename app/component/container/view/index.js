@@ -1,7 +1,5 @@
 'use strict'
-import React from 'react'
 import css from '../../css.css'
-import PropTypes from 'prop-types'
 class View extends React.Component {
   static propTypes = {
     children: PropTypes.node,

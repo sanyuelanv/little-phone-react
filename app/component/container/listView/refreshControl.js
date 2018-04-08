@@ -1,8 +1,6 @@
 'use strict'
-import React from 'react'
 import style from '../../css.css'
 import View from '../view'
-import PropTypes from 'prop-types'
 class RefreshControl extends React.Component {
   static propTypes = {
     config: PropTypes.object.isRequired,

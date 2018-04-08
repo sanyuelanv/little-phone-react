@@ -1,8 +1,6 @@
 'use strict'
-import React from 'react'
 import css from '../../css.css'
 import View from '../view'
-import PropTypes from 'prop-types'
 import IScroll from '../../config/iscroll-probe'
 import device from '../../config/device'
 const TYPE = [IScroll.utils.ease.elastic, IScroll.utils.ease.quadratic, IScroll.utils.ease.circular, IScroll.utils.ease.back, IScroll.utils.ease.bounce]

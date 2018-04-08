@@ -1,5 +1,5 @@
 'use strict'
-import App from './router/list'
+import App from './router/index'
 const main = function () {
   ReactDom.render(<App />, document.getElementById('main'))
 }

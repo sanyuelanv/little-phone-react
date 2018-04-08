@@ -2,10 +2,17 @@
   "name": "project",
   "version": "1.0.0",
   "babel": {
-    "presets": ["env", "react"],
+    "presets": [
+      "env",
+      "react"
+    ],
     "plugins": [
-      ["transform-class-properties",{"spec": true}],
-      "transform-runtime"
+      [
+        "transform-class-properties",
+        {
+          "spec": true
+        }
+      ]
     ]
   },
   "eslintConfig": {
@@ -350,7 +357,7 @@
   "description": "make a new project with webpack",
   "main": "index.js",
   "scripts": {
-    "dep": "NODE_ENV='production' webpack -p --progress --colors --config webpack.production.config.js --json --profile > stats.json",
+    "dep": "webpack -p --progress --colors --config webpack.production.config.js",
     "dev": "webpack-dev-server --devtool eval --progress --colors --content-base build"
   },
   "repository": {
@@ -369,9 +376,9 @@
     "babel-eslint": "^8.2.2",
     "babel-loader": "^7.1.4",
     "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
+    "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^0.28.11",
     "eslint": "^4.19.1",
     "eslint-plugin-react": "^7.7.0",
@@ -387,8 +394,9 @@
     "webpack-dev-server": "^3.1.1"
   },
   "dependencies": {
-    "babel-runtime": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
     "react": "^16.3.1",
-    "react-dom": "^16.3.1"
+    "react-dom": "^16.3.1",
+    "whatwg-fetch": "^2.0.4"
   }
 }

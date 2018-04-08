@@ -5,7 +5,7 @@ const nodeModuleDir = path.resolve(__dirname, 'node_module')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { consoleConfig, netWork } = require('./config.json')
 // 根据开发配置来判断是否引入 console.js
-const scriptArray = [path.resolve(__dirname, 'app/config/resize.js')]
+const scriptArray = ['babel-polyfill', 'whatwg-fetch', path.resolve(__dirname, 'app/config/resize.js')]
 if (consoleConfig) { scriptArray.push(path.resolve(__dirname, 'app/config/console.js')) }
 scriptArray.push(path.resolve(__dirname, 'app/index.js'))
 // 判断本机IP
@@ -24,9 +24,7 @@ for (const key in ifaces) {
 }
 if (ips.length === 1) { IP = ips[0] }
 const webpackConfig = {
-  entry: {
-    app: scriptArray
-  },
+  entry: { app: scriptArray },
   output: {
     path: path.resolve(__dirname, 'build'),
     chunkFilename: '[name].[chunkhash:5].chunk.js',
@@ -48,7 +46,7 @@ const webpackConfig = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    // 把React 定义为全局变量
+    // 把React,ReactDom,PropTypes 定义为全局变量
     new webpack.ProvidePlugin({
       React: 'react',
       ReactDom: 'react-dom',

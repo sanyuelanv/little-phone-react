@@ -1,5 +1,4 @@
 'use strict'
-import React from 'react'
 import style from '../../css.css'
 import View from '../view'
 import REM from '../../config/rem'

@@ -1,9 +1,7 @@
 'use strict'
-import React from 'react'
 import ScrollView from '../scrollView'
 import RefreshControl from './refreshControl'
 import List from './list'
-import PropTypes from 'prop-types'
 import REM from '../../config/rem'
 const HEIGHT = (60 / REM)
 const shadowSize = [2 / REM, 12 / REM, 8 / REM]

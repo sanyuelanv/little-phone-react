@@ -1,7 +1,5 @@
 'use strict'
-import React from 'react'
 import View from '../../container/view'
-import PropTypes from 'prop-types'
 class Button extends React.Component {
   static propTypes = {
     children: PropTypes.any,

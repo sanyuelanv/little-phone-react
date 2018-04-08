@@ -1,7 +1,7 @@
 'use strict'
-import React from 'react'
 import { Text, App, View, Button, ScrollView } from '../component/index'
 import style from './css.css'
+import svg from '../image/icon.svg'
 class Index extends React.Component {
   _handleLoad = this._handleLoad.bind(this)
   _handleToast = this._handleToast.bind(this)
@@ -39,6 +39,7 @@ class Index extends React.Component {
           </View>
           <View className={ style.viewTitle } >Text组件</View>
           <Text className={ style.text }>Text和View很像，但是它不会响应任何事件，只是用于文字的展示，而且也不能嵌套使用。但如果需要长按复制的文字，就使用Text标签。（注：部分安卓浏览器无法禁止长按复制文字）</Text>
+          <img src={svg} />
         </ScrollView>
       </App>
     )

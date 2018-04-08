@@ -1,5 +1,4 @@
 'use strict'
-import React from 'react'
 import { Text, App, View, Button, ScrollView, ListView } from '../../component/index'
 import style from './css.css'
 import Item from './item'

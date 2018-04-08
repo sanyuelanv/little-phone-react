@@ -1,5 +1,4 @@
 'use strict'
-import React from 'react'
 import View from '../../container/view'
 import style from '../../css.css'
 import LoadIcon from '../../base/icon/loadIcon'

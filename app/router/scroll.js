@@ -1,5 +1,5 @@
 'use strict'
-import React from 'react'
+
 import { Text, App, View, Button, ScrollView } from '../component/index'
 import style from './css.css'
 class Index extends React.Component {
@@ -20,10 +20,7 @@ class Index extends React.Component {
           <View
             className={ style.scrollViewItem }
             tapClassName={style.scrollViewItemPress}
-            tap ={() => {
-              console.log(1)
-              this.setScrollControl(300, 500, 1)
-            }}
+            tap ={() => { this.setScrollControl(300, 500, 1) }}
           ></View>
           <View className={ style.scrollViewItem }></View>
           <View className={ style.scrollViewItem }></View>

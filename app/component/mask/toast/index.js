@@ -1,5 +1,4 @@
 'use strict'
-import React from 'react'
 import style from '../../css.css'
 import View from '../../container/view'
 const THEME = [style.toastDark, style.toastLight]
