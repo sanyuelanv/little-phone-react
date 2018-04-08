@@ -27,7 +27,7 @@
 | animationStart| func |  null |  CSS 动画开始事件 |否 |
 | animationIteration | func |  null | CSS 动画重复播放事件 |否 |
 | animationEnd| func |  null |  CSS 动画结束事件 |否 |
-| getRef | func | null | 获取DOM节点 | 否 |
+| getRef | func | null | 获取DOM节点 | 否 |
 | contextMenu | func | null | 上下文菜单事件 |否 |
 
   
@@ -115,7 +115,7 @@
 | topRefreshControl| object | null | 下拉刷新组件样式 | 否 |
 | topRefresh| func | null | 下拉刷新执行事件 | 否 |
 | bottomRefresh| func | null | 上拉到底执行事件 | 否 |
-| bottomRefreshControl| object | null | 上拉到底组件样式 | 否 |
+| bottomRefreshControl| object | null | 上拉到底组件样式 | 否 |
 | Header | node | null | 头部组件 | 否 | 
 | headerProp | object | null | 头部组件属性 | 否 | 
 | layoutClassName | string | null | 列表层样式类名 | 否 |
