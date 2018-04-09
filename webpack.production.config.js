@@ -1,18 +1,20 @@
 const path = require('path')
 const webpack = require('webpack')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const nodeModuleDir = path.resolve(__dirname, 'node_module')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { publicPath } = require('./config.json')
 module.exports = {
-  entry: {
-    app: ['babel-polyfill', 'whatwg-fetch', path.resolve(__dirname, 'app/config/resize.js'), path.resolve(__dirname, 'app/index.js')]
-  },
+  performance: { maxEntrypointSize: 400000 },
+  entry: { app: [path.resolve(__dirname, 'app/config/resize.js'), path.resolve(__dirname, 'app/index.js')] },
   output: {
     path: path.resolve(__dirname, 'build'),
     chunkFilename: '[name].[chunkhash:5].js',
     publicPath: publicPath,
-    filename: 'app.[chunkhash:5].js'
+    filename: '[name].[chunkhash:5].js'
   },
   module: {
     rules: [{
@@ -23,7 +25,7 @@ module.exports = {
     },
     {
       test: /\.css$/,
-      use: ['style-loader', 'css-loader?modules&localIdentName=_[local]_[hash:base64:5]', 'postcss-loader'],
+      use: [MiniCssExtractPlugin.loader, 'css-loader?modules&localIdentName=_[local]_[hash:base64:5]', 'postcss-loader'],
       include: [path.resolve(__dirname, 'app')],
       exclude: [nodeModuleDir]
     },
@@ -35,9 +37,17 @@ module.exports = {
     }
     ]
   },
-  // 4.0 之后分转代码
+  // 4.0 之后分代码
   optimization: {
-    runtimeChunk: { name: 'manifest' },
+    minimizer: [
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+        sourceMap: true
+      }),
+      new OptimizeCSSAssetsPlugin({})
+    ],
+    runtimeChunk: { name: () => { return 'manifest' } },
     splitChunks: {
       cacheGroups: {
         commons: {
@@ -60,6 +70,7 @@ module.exports = {
       ReactDom: 'react-dom',
       PropTypes: 'prop-types'
     }),
+    new MiniCssExtractPlugin({ filename: '[name].css' }),
     new CleanWebpackPlugin(['build'])
   ],
   mode: 'production'

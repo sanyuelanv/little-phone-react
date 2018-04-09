@@ -1,5 +1,6 @@
 {
   "name": "project",
+  "sideEffects": false,
   "version": "1.0.0",
   "babel": {
     "presets": [
@@ -357,7 +358,7 @@
   "description": "make a new project with webpack",
   "main": "index.js",
   "scripts": {
-    "dep": "webpack -p --progress --colors --config webpack.production.config.js",
+    "dep": "webpack --progress --config webpack.production.config.js",
     "dev": "webpack-dev-server --devtool eval --progress --colors --content-base build"
   },
   "repository": {
@@ -382,12 +383,14 @@
     "css-loader": "^0.28.11",
     "eslint": "^4.19.1",
     "eslint-plugin-react": "^7.7.0",
-    "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.11",
     "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.4.0",
+    "optimize-css-assets-webpack-plugin": "^4.0.0",
     "postcss-adaptive-rpx": "^1.0.2",
     "postcss-loader": "^2.1.3",
     "style-loader": "^0.20.3",
+    "uglifyjs-webpack-plugin": "^1.2.4",
     "vconsole": "^3.1.0",
     "webpack": "^4.4.1",
     "webpack-cli": "^2.0.13",
