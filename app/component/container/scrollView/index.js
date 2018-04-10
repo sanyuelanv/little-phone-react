@@ -21,7 +21,8 @@ class ScrollView extends React.Component {
     onTouchEnd: PropTypes.func,
     getRef: PropTypes.func,
     getScrollControl: PropTypes.func,
-    getIScroll: PropTypes.func
+    getIScroll: PropTypes.func,
+    mustBounce: PropTypes.bool
   }
   static defaultProps = {
     children: null,
@@ -39,7 +40,8 @@ class ScrollView extends React.Component {
     onTouchEnd: null,
     getRef: null,
     getScrollControl: null,
-    getIScroll: null
+    getIScroll: null,
+    mustBounce: false
   }
   scrollView = null
   iScroll = null
@@ -73,9 +75,7 @@ class ScrollView extends React.Component {
     if (this.props.getRef) { this.props.getRef(scrollView) }
   }
   componentDidMount () {
-    const scrollbars = this.props.scrollbars
-    const direction = this.props.direction
-    const bounce = this.props.bounce
+    const { scrollbars, direction, bounce, mustBounce } = this.props
     const self = this
     let scrollX = false
     let scrollY = true
@@ -88,13 +88,14 @@ class ScrollView extends React.Component {
       click: false,
       tap: true,
       fadeScrollbars: true,
-      mouseWheel: true,
+      mouseWheel: false,
       scrollbars,
       scrollX,
       scrollY,
       bounce,
       disableMouse: true,
-      probeType: 2
+      probeType: 2,
+      mustBounce
     }
     if (device === 'android') {
       config.useTransition = true

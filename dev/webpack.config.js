@@ -73,7 +73,7 @@ routers.map((item, index) => {
       routerScript.push(script)
     }
     // 开启了console才把他加进去
-    if (!consoleConfig && i === 2) { return }
+    if (!consoleConfig && i === 0) { return }
     routerScript.push(js)
   })
   const tempSrc = path.resolve(__dirname, `../app/router/${template}/index.html`)

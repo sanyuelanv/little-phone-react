@@ -3,14 +3,6 @@
     {
       "name":"首页",
       "template":"index"
-    },
-    {
-      "name":"用户",
-      "template":"user"
-    },
-    {
-      "name":"更多",
-      "template":"more"
     }
   ],
   "consoleConfig":false,

@@ -15,7 +15,9 @@ class Index extends React.Component {
             <View className= {style.item}></View>
             <View className= {style.item}></View>
           </ScrollView>
-          <View className= {style.item}></View>
+          <ScrollView className= {style.itemScroll}>
+            <View className= {style.item} tap={() => { console.log(111) }}></View>
+          </ScrollView>
           <View className= {style.item}></View>
           <View className= {style.item}></View>
           <View className= {style.item}></View>

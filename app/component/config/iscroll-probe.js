@@ -355,7 +355,8 @@
       HWCompositing: true,
       useTransition: true,
       useTransform: true,
-      bindToWrapper: typeof window.onmousedown === 'undefined'
+      bindToWrapper: typeof window.onmousedown === 'undefined',
+      mustBounce : options.mustBounce || false
     }
 
     for (const i in options) {
@@ -364,7 +365,6 @@
 
     // Normalize options
     this.translateZ = this.options.HWCompositing && utils.hasPerspective ? ' translateZ(0)' : ''
-
     this.options.useTransition = utils.hasTransition && this.options.useTransition
     this.options.useTransform = utils.hasTransform && this.options.useTransform
 
@@ -497,7 +497,6 @@
 
       let point = e.touches ? e.touches[0] : e,
         pos
-        console.log(point);
 
       this.initiated	= utils.eventType[e.type]
       this.moved		= false
@@ -597,7 +596,14 @@
       }
 
       deltaX = this.hasHorizontalScroll ? deltaX : 0
-      deltaY = this.options.bounce ? deltaY : 0
+
+      if(this.options.mustBounce){
+        deltaY = this.options.bounce ? deltaY : 0
+      }
+      else {
+        deltaY = this.hasVerticalScroll ? deltaY : 0;  
+      }
+
 
       newX = this.x + deltaX
       newY = this.y + deltaY
@@ -880,8 +886,6 @@
       this.isInTransition = this.options.useTransition && time > 0
       const transitionType = this.options.useTransition && easing.style
       if (flag) {
-        // scrollTo 使用
-        // console.log(`scrollTo 使用:${x}   |  ${y}`)
         this._animate(x, y, time, easing.fn)
       }
       if (!time || transitionType) {
