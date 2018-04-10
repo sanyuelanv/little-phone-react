@@ -1,8 +1,0 @@
-'use strict'
-import App from './router/list'
-const main = function () {
-  ReactDom.render(<App />, document.getElementById('main'))
-}
-window.onload = function () {
-  main()
-}

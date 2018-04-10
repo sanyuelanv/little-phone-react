@@ -355,22 +355,23 @@
       "plugin:react/recommended"
     ]
   },
-  "description": "make a new project with webpack",
+  "description": "little-project",
   "main": "index.js",
   "scripts": {
-    "dep": "webpack --progress --config webpack.production.config.js",
-    "dev": "webpack-dev-server --devtool eval --progress --colors --content-base build"
+    "dep": "webpack --progress --config production.js",
+    "router": "node ./dev/router",
+    "dev": "node ./dev/router && node ./dev/server.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sanyuelanv/learn_mobx.git"
+    "url": "git+https://github.com/sanyuelanv/little-project.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/sanyuelanv/learn_mobx/issues"
+    "url": "https://github.com/sanyuelanv/little-project/issues"
   },
-  "homepage": "https://github.com/sanyuelanv/learn_mobx#readme",
+  "homepage": "https://github.com/sanyuelanv/little-project#readme",
   "devDependencies": {
     "autoprefixer": "^8.2.0",
     "babel-core": "^6.26.0",
@@ -394,7 +395,9 @@
     "vconsole": "^3.1.0",
     "webpack": "^4.4.1",
     "webpack-cli": "^2.0.13",
-    "webpack-dev-server": "^3.1.1"
+    "webpack-dev-server": "^3.1.1",
+    "webpack-hot-middleware": "^2.22.0",
+    "yargs": "^11.0.0"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",

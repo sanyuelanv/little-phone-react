@@ -6,12 +6,13 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const nodeModuleDir = path.resolve(__dirname, 'node_module')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { publicPath } = require('./config.json')
-module.exports = {
+const InlineChunkManifestHtmlWebpackPlugin = require('./dev/inline/index')
+const { routers, publicPath } = require('./config.json')
+const webpackConfig = {
   performance: { maxEntrypointSize: 400000 },
-  entry: { app: [path.resolve(__dirname, 'app/config/resize.js'), path.resolve(__dirname, 'app/index.js')] },
+  entry: {},
   output: {
-    path: path.resolve(__dirname, 'build'),
+    path: path.resolve(__dirname, 'build/assets'),
     chunkFilename: '[name].[chunkhash:5].js',
     publicPath: publicPath,
     filename: '[name].[chunkhash:5].js'
@@ -25,7 +26,15 @@ module.exports = {
     },
     {
       test: /\.css$/,
-      use: [MiniCssExtractPlugin.loader, 'css-loader?modules&localIdentName=_[local]_[hash:base64:5]', 'postcss-loader'],
+      use: [
+        MiniCssExtractPlugin.loader,
+        'css-loader?modules&localIdentName=_[local]_[hash:base64:5]',
+        { loader: 'postcss-loader',
+          options: {
+            ident: 'postcss',
+            config: { path: path.resolve(__dirname, 'dev/postcss.config.js') }
+          }
+        }],
       include: [path.resolve(__dirname, 'app')],
       exclude: [nodeModuleDir]
     },
@@ -50,6 +59,12 @@ module.exports = {
     runtimeChunk: { name: () => { return 'manifest' } },
     splitChunks: {
       cacheGroups: {
+        globals: {
+          minChunks: 2,
+          name: 'globals',
+          priority: -20,
+          chunks: 'all'
+        },
         commons: {
           test: /[\\/]node_modules[\\/]/,
           name: 'common',
@@ -59,12 +74,6 @@ module.exports = {
     }
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      filename: path.join(__dirname, 'build/index.html'),
-      template: path.join(__dirname, 'app/index.html'),
-      inject: true,
-      chunks: ['manifest', 'common', 'app']
-    }),
     new webpack.ProvidePlugin({
       React: 'react',
       ReactDom: 'react-dom',
@@ -75,3 +84,27 @@ module.exports = {
   ],
   mode: 'production'
 }
+routers.map((item, index) => {
+  const {
+    name,
+    template
+  } = item
+  // 每个页面使用一个entry配置
+  const routerScript = [path.resolve(__dirname, `app/router/${template}/index.js`)]
+  const plugin = new HtmlWebpackPlugin({
+    filename: `../${template}.html`,
+    title: name,
+    template: path.resolve(__dirname, `app/router/${template}/index.html`),
+    inject: true,
+    minify: {
+      collapseWhitespace: true,
+      conservativeCollapse: true
+    },
+    chunks: ['globals', 'manifest', 'common', template]
+  })
+  webpackConfig.entry[template] = routerScript
+  webpackConfig.plugins.push(plugin)
+})
+webpackConfig.plugins.push(new InlineChunkManifestHtmlWebpackPlugin({ inlineChunks: ['manifest'] }))
+
+module.exports = webpackConfig

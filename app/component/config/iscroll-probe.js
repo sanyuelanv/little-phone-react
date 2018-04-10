@@ -467,6 +467,7 @@
     },
 
     _start: function (e) {
+      e.stopPropagation()
       // React to left mouse button only
       if (utils.eventType[e.type] != 1) {
 		  // for button property
@@ -496,6 +497,7 @@
 
       let point = e.touches ? e.touches[0] : e,
         pos
+        console.log(point);
 
       this.initiated	= utils.eventType[e.type]
       this.moved		= false
@@ -1911,7 +1913,6 @@
 
     _start: function (e) {
       const point = e.touches ? e.touches[0] : e
-
       e.preventDefault()
       e.stopPropagation()
 

@@ -34,7 +34,7 @@ class ScrollView extends React.Component {
     scroll: null,
     scrollEnd: null,
     scrollCancel: null,
-    bounce: false,
+    bounce: true,
     renderTopRefreshControl: null,
     onTouchEnd: null,
     getRef: null,
