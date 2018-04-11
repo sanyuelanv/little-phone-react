@@ -15,6 +15,7 @@ const tempNameArr = [
   'css.css',
   'router.js'
 ]
+function titleCase (str) { str = str.toLowerCase().split(' '); for (const i in str) { str[i] = str[i].replace(str[i].charAt(0), str[i].charAt(0).toUpperCase()) } return str.join(' ') }
 
 async function AddRouter () {
   for (const key in routers) {
@@ -72,7 +73,8 @@ async function AddRouter () {
           try {
             content = fs.readFileSync(SRC_PATH[index], { encoding: 'utf-8' })
             content = content.replace(titleReg, name)
-            content = content.replace(nameReg, template)
+            const classNmae = titleCase(template)
+            content = content.replace(nameReg, classNmae)
             fs.writeFileSync(path.resolve(__dirname, `../app/router/${template}/${tempNameArr[index]}`), content)
             console.log(`${tempNameArr[index]} 创建成功`)
           }

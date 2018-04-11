@@ -183,7 +183,7 @@ class ListView extends React.Component {
     return (
       <ScrollView
         {...this.props}
-        mustBounce = {true}
+        mustScroll = {true}
         bounce={true}
         direction={'column'}
         scroll={this._scroll}

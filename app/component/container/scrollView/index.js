@@ -22,7 +22,7 @@ class ScrollView extends React.Component {
     getRef: PropTypes.func,
     getScrollControl: PropTypes.func,
     getIScroll: PropTypes.func,
-    mustBounce: PropTypes.bool
+    mustScroll: PropTypes.bool
   }
   static defaultProps = {
     children: null,
@@ -41,7 +41,7 @@ class ScrollView extends React.Component {
     getRef: null,
     getScrollControl: null,
     getIScroll: null,
-    mustBounce: false
+    mustScroll: false
   }
   scrollView = null
   iScroll = null
@@ -75,7 +75,7 @@ class ScrollView extends React.Component {
     if (this.props.getRef) { this.props.getRef(scrollView) }
   }
   componentDidMount () {
-    const { scrollbars, direction, bounce, mustBounce } = this.props
+    const { scrollbars, direction, bounce, mustScroll } = this.props
     const self = this
     let scrollX = false
     let scrollY = true
@@ -95,7 +95,7 @@ class ScrollView extends React.Component {
       bounce,
       disableMouse: true,
       probeType: 2,
-      mustBounce
+      mustScroll
     }
     if (device === 'android') {
       config.useTransition = true

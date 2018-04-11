@@ -356,7 +356,7 @@
       useTransition: true,
       useTransform: true,
       bindToWrapper: typeof window.onmousedown === 'undefined',
-      mustBounce : options.mustBounce || false
+      mustScroll : options.mustScroll || false
     }
 
     for (const i in options) {
@@ -595,13 +595,15 @@
         deltaX = 0
       }
 
-      deltaX = this.hasHorizontalScroll ? deltaX : 0
+      // deltaX = this.hasHorizontalScroll ? deltaX : 0
 
-      if(this.options.mustBounce){
+      if(this.options.mustScroll){
+        deltaX = this.hasHorizontalScroll ? deltaX : 0
         deltaY = this.options.bounce ? deltaY : 0
       }
       else {
-        deltaY = this.hasVerticalScroll ? deltaY : 0;  
+        deltaX = this.hasHorizontalScroll ? deltaX : 0
+        deltaY = this.hasVerticalScroll ? deltaY : 0;
       }
 
 

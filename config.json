@@ -1,8 +1,16 @@
 {
   "routers":[
     {
-      "name":"首页",
+      "name":"简单例子",
       "template":"index"
+    },
+    {
+      "name":"ScrollView的用法",
+      "template":"scroll"
+    },
+    {
+      "name":"ListView的用法",
+      "template":"list"
     }
   ],
   "consoleConfig":false,

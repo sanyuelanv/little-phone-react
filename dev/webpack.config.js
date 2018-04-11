@@ -6,7 +6,7 @@ const { routers, consoleConfig } = require('../config.json')
 // 根据开发配置来判断是否引入 console.js
 // 开发内置  console ／ hotMiddle
 const scriptArray = [
-  path.resolve(__dirname, '../app/config/console.js'),
+  path.resolve(__dirname, '../app/component/config/console.js'),
   'webpack-hot-middleware/client?reload=true'
 ]
 
@@ -51,7 +51,12 @@ const webpackConfig = {
     },
     {
       test: /\.(png|svg|jpg|gif)$/,
-      use: ['file-loader'],
+      use: [{
+        loader: 'url-loader',
+        options: {
+          limit: 2500
+        }
+      }],
       include: [path.resolve(__dirname, '../app')],
       exclude: [nodeModuleDir]
     }

@@ -104,7 +104,8 @@
 | scroll | func | null | 滚动中执行事件 | 否 | 
 | scrollEnd | func | null | 滚动结束执行事件 | 否 | 
 | scrollCancel | func | null | 滚动取消执行事件 | 否 | 
-| getScrollControl | func | null | 返回一个可控制滚动的对象 | 否
+| getScrollControl | func | null | 返回一个可控制滚动的函数 | 否
+| mustScroll | bool | false | 和bounce配合使用，在子元素不满一页的情况下是否还能启用滚动 | 否
 
 ## ListView组件
 -----

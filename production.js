@@ -40,7 +40,10 @@ const webpackConfig = {
     },
     {
       test: /\.(png|svg|jpg|gif)$/,
-      use: 'file-loader?name=[name].[ext]&outputPath=/images',
+      use: [{
+        loader: 'url-loader?limit=25000&name=[name].[ext]&outputPath=/images'
+      }],
+      // use: 'file-loader?name=[name].[ext]&outputPath=/images',
       include: [path.resolve(__dirname, 'app')],
       exclude: [nodeModuleDir]
     }
