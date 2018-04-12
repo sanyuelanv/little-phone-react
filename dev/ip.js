@@ -13,5 +13,5 @@ for (const key in ifaces) {
     })
   }
 }
-if (ips.length === 1) { IP = ips[0] }
+if (ips.length >= 1) { IP = ips[0] }
 module.exports = IP
