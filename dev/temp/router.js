@@ -1,5 +1,5 @@
 'use strict'
-import { Text, View } from '../../component/index'
+const { Text, View } = window.QUI
 import style from './css.css'
 class @className extends React.Component {
   render () {

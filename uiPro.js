@@ -6,9 +6,9 @@ module.exports = {
   entry: path.resolve(__dirname, 'app/component/index.js'),
   output: {
     path: path.resolve(__dirname, 'dev/common'),
-    filename: 'qUI.js',
-    library: 'commonjs',
-    libraryTarget: 'umd'
+    filename: 'QUI.js',
+    library: 'QUI',
+    libraryTarget: 'window'
   },
   mode: 'production',
   // 4.0 之后分代码
@@ -19,6 +19,9 @@ module.exports = {
         parallel: true,
         sourceMap: true,
         uglifyOptions: {
+          compress: {
+            drop_console: true
+          },
           output: {
             comments: false
           }
@@ -37,7 +40,8 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          'css-loader?modules&localIdentName=_[local]_[hash:base64:5]',
+          'style-loader',
+          'css-loader?minimize=true&modules&localIdentName=_[local]_[hash:base64:5]',
           { loader: 'postcss-loader',
             options: {
               ident: 'postcss',
