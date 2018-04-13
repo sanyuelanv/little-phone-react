@@ -1,21 +1,14 @@
 {
   "routers":[
     {
-      "name":"简单例子",
+      "name":"home",
       "template":"index"
-    },
-    {
-      "name":"ScrollView的用法",
-      "template":"scroll"
-    },
-    {
-      "name":"ListView的用法",
-      "template":"list"
     }
   ],
   "consoleConfig":false,
   "netWork":{
     "port":"8080"
   },
-  "publicPath":"assets/"
+  "publicPath":"assets/",
+  "common":"https://static.haodan123.com/static/pfrr.min.js"
 }

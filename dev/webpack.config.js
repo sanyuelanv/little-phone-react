@@ -20,10 +20,8 @@ const webpackConfig = {
   mode: 'development',
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    // 把React,ReactDom,PropTypes 定义为全局变量
+    // PropTypes 定义为全局变量
     new webpack.ProvidePlugin({
-      React: 'react',
-      ReactDom: 'react-dom',
       PropTypes: 'prop-types'
     })
   ],
@@ -53,9 +51,7 @@ const webpackConfig = {
       test: /\.(png|svg|jpg|gif)$/,
       use: [{
         loader: 'url-loader',
-        options: {
-          limit: 2500
-        }
+        options: { limit: 2500 }
       }],
       include: [path.resolve(__dirname, '../app')],
       exclude: [nodeModuleDir]

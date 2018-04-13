@@ -1,8 +1,10 @@
 const fs = require('fs')
 const path = require('path')
-const titleReg = new RegExp('@', 'g')
-const nameReg = new RegExp('&', 'g')
+const titleReg = new RegExp('@title', 'g')
+const commonReg = new RegExp('@common', 'g')
+const nameReg = new RegExp('@className', 'g')
 const { routers } = require('../config.json')
+const { common } = require('../config.json')
 const SRC_PATH = [
   path.resolve(__dirname, `./temp/index.html`),
   path.resolve(__dirname, `./temp/index.js`),
@@ -75,6 +77,7 @@ async function AddRouter () {
             content = content.replace(titleReg, name)
             const classNmae = titleCase(template)
             content = content.replace(nameReg, classNmae)
+            content = content.replace(commonReg, `<script type="text/javascript" src="${common}"></script>`)
             fs.writeFileSync(path.resolve(__dirname, `../app/router/${template}/${tempNameArr[index]}`), content)
             console.log(`${tempNameArr[index]} 创建成功`)
           }

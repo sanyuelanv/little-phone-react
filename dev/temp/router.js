@@ -1,7 +1,7 @@
 'use strict'
 import { Text, View } from '../../component/index'
 import style from './css.css'
-class & extends React.Component {
+class @className extends React.Component {
   render () {
     return (
       <View className={ style.container } >
@@ -10,4 +10,4 @@ class & extends React.Component {
     )
   }
 }
-export default &
+export default @className

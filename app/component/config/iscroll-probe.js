@@ -356,7 +356,7 @@
       useTransition: true,
       useTransform: true,
       bindToWrapper: typeof window.onmousedown === 'undefined',
-      mustScroll : options.mustScroll || false
+      mustScroll: options.mustScroll || false
     }
 
     for (const i in options) {

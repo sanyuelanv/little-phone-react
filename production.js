@@ -1,5 +1,5 @@
 const path = require('path')
-const webpack = require('webpack')
+// const webpack = require('webpack')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
@@ -40,10 +40,7 @@ const webpackConfig = {
     },
     {
       test: /\.(png|svg|jpg|gif)$/,
-      use: [{
-        loader: 'url-loader?limit=25000&name=[name].[ext]&outputPath=/images'
-      }],
-      // use: 'file-loader?name=[name].[ext]&outputPath=/images',
+      use: [{ loader: 'url-loader?limit=25000&name=[name].[ext]&outputPath=/images&publicPath=./images' }],
       include: [path.resolve(__dirname, 'app')],
       exclude: [nodeModuleDir]
     }
@@ -55,7 +52,12 @@ const webpackConfig = {
       new UglifyJsPlugin({
         cache: true,
         parallel: true,
-        sourceMap: true
+        sourceMap: true,
+        uglifyOptions: {
+          output: {
+            comments: false
+          }
+        }
       }),
       new OptimizeCSSAssetsPlugin({})
     ],
@@ -67,21 +69,16 @@ const webpackConfig = {
           name: 'globals',
           priority: -20,
           chunks: 'all'
-        },
-        commons: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'common',
-          chunks: 'all'
         }
+        // commons: {
+        //   test: /[\\/]node_modules[\\/]/,
+        //   name: 'common',
+        //   chunks: 'all'
+        // }
       }
     }
   },
   plugins: [
-    new webpack.ProvidePlugin({
-      React: 'react',
-      ReactDom: 'react-dom',
-      PropTypes: 'prop-types'
-    }),
     new MiniCssExtractPlugin({ filename: '[name].css' }),
     new CleanWebpackPlugin(['build'])
   ],
@@ -103,7 +100,7 @@ routers.map((item, index) => {
       collapseWhitespace: true,
       conservativeCollapse: true
     },
-    chunks: ['globals', 'manifest', 'common', template]
+    chunks: ['manifest', 'globals', template]
   })
   webpackConfig.entry[template] = routerScript
   webpackConfig.plugins.push(plugin)

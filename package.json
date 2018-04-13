@@ -8,6 +8,7 @@
       "react"
     ],
     "plugins": [
+      "transform-react-remove-prop-types",
       [
         "transform-class-properties",
         {
@@ -36,7 +37,7 @@
       "window": false,
       "location": false,
       "React": false,
-      "ReactDom": false,
+      "ReactDOM": false,
       "PropTypes": false
     },
     "rules": {
@@ -359,6 +360,7 @@
   "main": "index.js",
   "scripts": {
     "dep": "webpack --progress --config production.js",
+    "ui": "webpack --progress --config uiPro.js",
     "router": "node ./dev/router",
     "dev": "node ./dev/router && node ./dev/server.js"
   },
@@ -378,6 +380,7 @@
     "babel-eslint": "^8.2.2",
     "babel-loader": "^7.1.4",
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.13",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "clean-webpack-plugin": "^0.1.19",
@@ -385,6 +388,10 @@
     "eslint": "^4.19.1",
     "eslint-plugin-react": "^7.7.0",
     "file-loader": "^1.1.11",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^3.0.0",
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.4.0",
     "optimize-css-assets-webpack-plugin": "^4.0.0",
