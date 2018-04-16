@@ -5,10 +5,7 @@ class Index extends React.Component {
   render () {
     return (
       <View className={ style.container } >
-        <View tap={() => { console.log(1) }} >
-          Hello world
-          <View tap={() => { console.log(2) }} tapStopPropagation={ true }>点击</View>
-        </View>
+        <Text>Hello world</Text>
       </View>
     )
   }
