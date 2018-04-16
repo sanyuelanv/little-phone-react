@@ -5,7 +5,8 @@ const WebpackDevMiddleware = require('webpack-dev-middleware')
 const WebpackHotMiddleware = require('webpack-hot-middleware')
 const webpackConfig = require('./webpack.config')
 const childProcess = require('child_process')
-const { netWork } = require('../config.json')
+const { netWork, myProxy } = require('../config.json')
+const proxy = require('http-proxy-middleware')
 // 配置开发 IP & port
 const IP = require('./IP')
 const { port } = netWork
@@ -27,7 +28,7 @@ const app = express()
 const compiler = webpack(webpackConfig)
 // 服务器配置
 app.use(WebpackDevMiddleware(compiler, {
-  publicPath: `http://${IP}:${port}/`,
+  publicPath: `http://${IP}:${port}/dev/`,
   stats: { colors: true, chunks: false },
   progress: true,
   inline: true,
@@ -36,7 +37,7 @@ app.use(WebpackDevMiddleware(compiler, {
 app.use(WebpackHotMiddleware(compiler))
 
 // 服务器路由配置
-app.get('/:pagename?', function (req, res, next) {
+app.get('/dev/:pagename?', function (req, res, next) {
   const pagename = req.params.pagename + '.html' || 'index.html'
   const filepath = path.join(compiler.outputPath, pagename)
   // 使用webpack提供的outputFileSystem
@@ -48,9 +49,17 @@ app.get('/:pagename?', function (req, res, next) {
     res.end()
   })
 })
-
+if (proxy) {
+  // myProxy.url
+  const apiProxy = proxy({
+    target: myProxy.url,
+    changeOrigin: true, // for vhosted sites, changes host header to match to target's host
+    logLevel: 'debug'
+  })
+  app.use(`/${myProxy.router}/*`, apiProxy)
+}
 module.exports = app.listen(port, function (err, next) {
   if (err) { return next('服务器启动错误') }
   // console.log(`${cmd} http://${IP}:${port}/`)
-  childProcess.exec(`${cmd} http://${IP}:${port}/`)
+  childProcess.exec(`${cmd} http://${IP}:${port}/dev/`)
 })
