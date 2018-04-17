@@ -1,7 +1,5 @@
 const path = require('path')
-// const webpack = require('webpack')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const nodeModuleDir = path.resolve(__dirname, 'node_module')
@@ -27,7 +25,7 @@ const webpackConfig = {
     {
       test: /\.css$/,
       use: [
-        MiniCssExtractPlugin.loader,
+        'style.loader',
         'css-loader?modules&localIdentName=_[local]_[hash:base64:5]',
         { loader: 'postcss-loader',
           options: {
@@ -73,18 +71,10 @@ const webpackConfig = {
           priority: -20,
           chunks: 'all'
         }
-        // commons: {
-        //   test: /[\\/]node_modules[\\/]/,
-        //   name: 'common',
-        //   chunks: 'all'
-        // }
       }
     }
   },
-  plugins: [
-    new MiniCssExtractPlugin({ filename: '[name].css' }),
-    new CleanWebpackPlugin(['build'])
-  ],
+  plugins: [new CleanWebpackPlugin(['build'])],
   mode: 'production'
 }
 routers.map((item, index) => {
